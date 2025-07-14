@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1dt4htywl0oq"]
+
+[ext_resource type="Script" uid="uid://dujoem8fra4c7" path="res://scripts/player.gd" id="1_yj4gv"]
+[ext_resource type="Texture2D" uid="uid://cha8qw127rywm" path="res://assets/topdown-shooter/Spritesheet/spritesheet_characters copy.png" id="2_yj4gv"]
+[ext_resource type="Script" uid="uid://hhfyyrkuyenh" path="res://pickups/pickup_area.gd" id="3_i4ban"]
+[ext_resource type="PackedScene" uid="uid://dcit3xrgdihuu" path="res://ui/playerUI.tscn" id="3_xs2b6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yj4gv"]
+radius = 16.1245
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1f8af"]
+radius = 12.0
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+top_level = true
+z_index = 6
+collision_layer = 5
+script = ExtResource("1_yj4gv")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PlayerUI" parent="UI" instance=ExtResource("3_xs2b6")]
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Body" type="Sprite2D" parent="Sprites"]
+texture = ExtResource("2_yj4gv")
+
+[node name="HeldItem" type="Sprite2D" parent="Sprites"]
+position = Vector2(37, 6)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_yj4gv")
+
+[node name="RightHand" type="Marker2D" parent="."]
+position = Vector2(15, 13)
+
+[node name="pickupArea" type="Area2D" parent="."]
+script = ExtResource("3_i4ban")
+metadata/_custom_type_script = "uid://hhfyyrkuyenh"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pickupArea"]
+position = Vector2(23, 0)
+shape = SubResource("CircleShape2D_1f8af")
