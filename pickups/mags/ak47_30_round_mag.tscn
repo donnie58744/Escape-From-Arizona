@@ -1,15 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctf60dk7hfxtj"]
+[gd_scene load_steps=6 format=3 uid="uid://ctf60dk7hfxtj"]
 
 [ext_resource type="Texture2D" uid="uid://by00lxi553pu0" path="res://assets/Guns/01 - Individual sprites/Bullets & Ammo/AK 47/AK 47 - Mag.png" id="1_846na"]
 [ext_resource type="PackedScene" uid="uid://bk4asqlje361t" path="res://pickups/pickupArea.tscn" id="1_woq1s"]
-[ext_resource type="Script" uid="uid://chco7vhppdw2f" path="res://scripts/mag.gd" id="1_xx85w"]
+[ext_resource type="Script" uid="uid://chco7vhppdw2f" path="res://pickups/scripts/mag.gd" id="1_xx85w"]
+[ext_resource type="Script" uid="uid://cg4cabxp8ujmj" path="res://pickups/scripts/item.gd" id="4_16fs3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xx85w"]
 size = Vector2(14, 16)
 
-[node name="Ak47_30_Round" type="CharacterBody2D"]
+[node name="Ak47_30_Round" type="CharacterBody2D" node_paths=PackedStringArray("itemData")]
 script = ExtResource("1_xx85w")
-MAG_NAME = "Ak47_30_Round"
+itemData = NodePath("Item")
 
 [node name="PickupArea" parent="." instance=ExtResource("1_woq1s")]
 
@@ -18,3 +19,8 @@ shape = SubResource("RectangleShape2D_xx85w")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_846na")
+
+[node name="Item" type="Node" parent="."]
+script = ExtResource("4_16fs3")
+ITEM_NAME = "Ak47_30_Round"
+metadata/_custom_type_script = "uid://cg4cabxp8ujmj"

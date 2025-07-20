@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cump8bye1mxw6"]
 
-[ext_resource type="Script" uid="uid://covavl03mk178" path="res://pickups/bullets/bullet.gd" id="1_nkvae"]
+[ext_resource type="Script" uid="uid://covavl03mk178" path="res://pickups/scripts/bullet.gd" id="1_nkvae"]
 [ext_resource type="Texture2D" uid="uid://ig62t66r1n5y" path="res://assets/Guns/01 - Individual sprites/Bullets & Ammo/Revolver - Colt 45/Bullet.png" id="2_hrgea"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hrgea"]
