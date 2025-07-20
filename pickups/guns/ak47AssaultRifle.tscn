@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://bwjsp25hpkrpv"]
+
+[ext_resource type="Script" uid="uid://dj185ugv3q7qt" path="res://pickups/scripts/gun.gd" id="1_0e6a4"]
+[ext_resource type="Texture2D" uid="uid://d4dmwj64mhx52" path="res://assets/Guns/01 - Individual sprites/Guns/AK 47 [96x48].png" id="1_x0ol5"]
+[ext_resource type="AudioStream" uid="uid://ckwhlbsi5o3v8" path="res://assets/Sounds/ak47-single-shot.wav" id="3_rpqww"]
+[ext_resource type="PackedScene" uid="uid://bk4asqlje361t" path="res://pickups/pickupArea.tscn" id="4_rpqww"]
+[ext_resource type="Script" uid="uid://cg4cabxp8ujmj" path="res://pickups/scripts/item.gd" id="5_yo6qm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rpqww"]
+size = Vector2(78, 24)
+
+[node name="Ak47AssaultRifle" type="CharacterBody2D" node_paths=PackedStringArray("itemData")]
+z_index = 4
+z_as_relative = false
+script = ExtResource("1_0e6a4")
+itemData = NodePath("Item")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_x0ol5")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(29, -14)
+
+[node name="Shot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_rpqww")
+
+[node name="FireRateTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="PickupArea" parent="." instance=ExtResource("4_rpqww")]
+position = Vector2(-8, -13)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+position = Vector2(1, 5)
+shape = SubResource("RectangleShape2D_rpqww")
+
+[node name="Item" type="Node" parent="."]
+script = ExtResource("5_yo6qm")
+ITEM_NAME = "Ak47AssaultRifle"
+metadata/_custom_type_script = "uid://cg4cabxp8ujmj"
