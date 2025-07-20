@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dcit3xrgdihuu"]
+[gd_scene load_steps=5 format=3 uid="uid://dcit3xrgdihuu"]
+
+[ext_resource type="LabelSettings" uid="uid://css1toin1lkpq" path="res://presets/gunInfoLabelSettings.tres" id="1_8wwdu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8wwdu"]
 font_size = 42
@@ -70,7 +72,14 @@ vertical_alignment = 1
 
 [node name="FirerateLabel" type="Label" parent="GunInfo/List"]
 layout_mode = 2
-text = "Auto"
+text = "????"
 label_settings = SubResource("LabelSettings_v0tec")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CurrentAmmoLabel" type="Label" parent="GunInfo/List"]
+layout_mode = 2
+text = "0/0"
+label_settings = ExtResource("1_8wwdu")
 horizontal_alignment = 1
 vertical_alignment = 1
