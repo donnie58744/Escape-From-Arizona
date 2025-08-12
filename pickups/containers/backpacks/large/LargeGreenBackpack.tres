@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Backpack" load_steps=4 format=3 uid="uid://b0d4u642se3s3"]
+
+[ext_resource type="Texture2D" uid="uid://v7la643mwfpv" path="res://assets/backpacks/icons/large_green_backpack.png" id="1_nh8j7"]
+[ext_resource type="Script" uid="uid://ccnml0hlynlf6" path="res://pickups/scripts/item.gd" id="2_nr4ga"]
+[ext_resource type="Script" uid="uid://de47f2fjkugvw" path="res://pickups/containers/backpacks/scripts/backpack.gd" id="4_esie8"]
+
+[resource]
+script = ExtResource("4_esie8")
+items = Array[ExtResource("2_nr4ga")]([])
+CONTAINER_SIZE = 2
+TYPE = 2
+ICON = ExtResource("1_nh8j7")
+NAME = "Large Green"
+RARITY = 0
+HAND_HOLDING_OFFSET = Vector2(0, 0)
+metadata/_custom_type_script = "uid://de47f2fjkugvw"

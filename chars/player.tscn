@@ -1,33 +1,37 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1dt4htywl0oq"]
+[gd_scene load_steps=11 format=3 uid="uid://d1dt4htywl0oq"]
 
 [ext_resource type="Script" uid="uid://dujoem8fra4c7" path="res://scripts/player.gd" id="1_yj4gv"]
-[ext_resource type="Texture2D" uid="uid://cha8qw127rywm" path="res://assets/topdown-shooter/Spritesheet/spritesheet_characters copy.png" id="2_yj4gv"]
-[ext_resource type="Script" uid="uid://hhfyyrkuyenh" path="res://pickups/scripts/pickup_area.gd" id="3_i4ban"]
-[ext_resource type="PackedScene" uid="uid://dcit3xrgdihuu" path="res://ui/playerUI.tscn" id="3_xs2b6"]
+[ext_resource type="Resource" uid="uid://bnh83gl8ja2nx" path="res://chars/inv/player_inventory.tres" id="2_b63wt"]
+[ext_resource type="PackedScene" uid="uid://bi0bxy8adeydd" path="res://ui/PlayerQuickSlots.tscn" id="2_xs2b6"]
+[ext_resource type="Texture2D" uid="uid://co5ekuesgysyq" path="res://assets/topdown-shooter/Spritesheet/spritesheet_characters.png" id="5_xs2b6"]
+[ext_resource type="PackedScene" uid="uid://qh63ih3svluk" path="res://ui/GunInfoUI.tscn" id="6_b63wt"]
+[ext_resource type="PackedScene" uid="uid://cxlg2y5watvs5" path="res://ui/CharacterInventoryUI.tscn" id="6_qrljh"]
+[ext_resource type="PackedScene" uid="uid://crsaypl43mwna" path="res://ui/InteractPanelUI.tscn" id="7_b63wt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yj4gv"]
 radius = 16.1245
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1f8af"]
-radius = 12.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrljh"]
+atlas = ExtResource("5_xs2b6")
+region = Rect2(389, 0, 35, 43)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b63wt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrljh")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}]
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 top_level = true
 z_index = 6
 collision_layer = 5
 script = ExtResource("1_yj4gv")
-
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="PlayerUI" parent="UI" instance=ExtResource("3_xs2b6")]
-
-[node name="Sprites" type="Node2D" parent="."]
-
-[node name="Body" type="Sprite2D" parent="Sprites"]
-texture = ExtResource("2_yj4gv")
-
-[node name="HeldItem" type="Sprite2D" parent="Sprites"]
-position = Vector2(37, 6)
+inventory = ExtResource("2_b63wt")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
@@ -35,13 +39,25 @@ zoom = Vector2(3, 3)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_yj4gv")
 
-[node name="RightHand" type="Marker2D" parent="."]
+[node name="RightHand" type="Sprite2D" parent="."]
+z_index = 3
 position = Vector2(15, 13)
 
-[node name="pickupArea" type="Area2D" parent="."]
-script = ExtResource("3_i4ban")
-metadata/_custom_type_script = "uid://hhfyyrkuyenh"
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_b63wt")
+animation = &"walking"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="pickupArea"]
-position = Vector2(23, 0)
-shape = SubResource("CircleShape2D_1f8af")
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PlayerQuickSlots" parent="UI" instance=ExtResource("2_xs2b6")]
+
+[node name="PlayerInventory" parent="UI" instance=ExtResource("6_qrljh")]
+character_inventory = ExtResource("2_b63wt")
+
+[node name="GunInfo" parent="UI" instance=ExtResource("6_b63wt")]
+
+[node name="InteractPanel" parent="UI" instance=ExtResource("7_b63wt")]
+anchors_preset = 8
+
+[node name="PickupTimer" type="Timer" parent="."]
+one_shot = true
