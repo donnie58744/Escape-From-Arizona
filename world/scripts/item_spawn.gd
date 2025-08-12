@@ -8,6 +8,8 @@ func pick_weighted_item(rarity, item_catogory: Dictionary) -> String:
 	
 	if (rarity == "Nothing"):
 		return ""
+	if (rarity not in item_catogory.keys()):
+		return ""
 	for item in item_catogory[rarity]:
 		var weight = item_catogory[rarity][item]["SPAWN_WEIGHT"]
 		total_weight += weight

@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://qh63ih3svluk"]
+
+[ext_resource type="LabelSettings" uid="uid://css1toin1lkpq" path="res://presets/gunInfoLabelSettings.tres" id="1_80tur"]
+[ext_resource type="Script" uid="uid://dv53jdbrgu0uc" path="res://ui/scripts/gun_info_ui.gd" id="1_wcjqq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wcjqq"]
+font_size = 34
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vut1d"]
+font_size = 45
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[node name="GunInfo" type="Panel"]
+custom_minimum_size = Vector2(185, 200)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -185.0
+offset_top = -200.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("1_wcjqq")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.47451, 0.47451, 0.47451, 0.701961)
+
+[node name="List" type="VBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AmmoTypeLabel" type="Label" parent="ColorRect/List"]
+layout_mode = 2
+text = "???x??mm"
+label_settings = SubResource("LabelSettings_wcjqq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FirerateModeLabel" type="Label" parent="ColorRect/List"]
+layout_mode = 2
+text = "????"
+label_settings = SubResource("LabelSettings_vut1d")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CurrentAmmoLabel" type="Label" parent="ColorRect/List"]
+layout_mode = 2
+text = "0/0"
+label_settings = ExtResource("1_80tur")
+horizontal_alignment = 1
+vertical_alignment = 1

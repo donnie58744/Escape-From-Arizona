@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx22gohe1cggp"]
+
+[ext_resource type="Script" uid="uid://wv2d53haqwvj" path="res://chars/inv/scripts/dragable_item.gd" id="1_gyb11"]
+
+[node name="DragableItem" type="Node2D"]
+z_index = 1
+script = ExtResource("1_gyb11")
+
+[node name="ItemSprite" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+stretch_mode = 5

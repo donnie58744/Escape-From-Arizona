@@ -1,0 +1,32 @@
+extends GridContainer
+class_name ItemContainerUI
+var slots:Array[ItemSlot]
+
+func clearSlots():
+	for n:ItemSlot in get_children():
+		n.queue_free()
+	slots.clear()
+
+func setup(itemContainer:ItemContainer):
+	# Runs when player inventory is open
+	clearSlots()
+	if (itemContainer):
+		addSlots(itemContainer)
+		updateSlots(itemContainer)
+
+func updateSlots(itemContainer:ItemContainer):
+	var containerContents:Array = itemContainer.items
+	for i in range(min(containerContents.size(),slots.size())):
+		var slot:ItemSlot = slots[i]
+		var item:Item = containerContents[i]
+		slot.update(item)
+
+func addSlots(itemContainer:ItemContainer):
+	var CONTAINER_SIZE:int = itemContainer.CONTAINER_SIZE
+	if (slots.size() != CONTAINER_SIZE):
+		for i in CONTAINER_SIZE:
+			var slotScene = preload("res://ui/ItemSlot.tscn")
+			var slot = slotScene.instantiate()
+			slot.CONTAINER_ITEM = itemContainer
+			slots.append(slot)
+			add_child(slot)

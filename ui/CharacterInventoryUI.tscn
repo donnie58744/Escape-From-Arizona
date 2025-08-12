@@ -1,0 +1,313 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxlg2y5watvs5"]
+
+[ext_resource type="Script" uid="uid://bk615yi8g0m" path="res://ui/scripts/character_inventory_ui.gd" id="1_y6ubx"]
+[ext_resource type="LabelSettings" uid="uid://dr3p663hvbk5l" path="res://presets/playerInventoryIconNameLabel.tres" id="2_kgdpn"]
+[ext_resource type="PackedScene" uid="uid://2dopefbhlvjx" path="res://ui/ItemContainerUi.tscn" id="4_6ebbx"]
+[ext_resource type="PackedScene" uid="uid://bov6ks0tqqqen" path="res://ui/ItemSlot.tscn" id="6_5aqjt"]
+
+[node name="CharacterInventory" type="Control" node_paths=PackedStringArray("pockets", "backpack_item_container", "slots")]
+custom_minimum_size = Vector2(2760, 1920)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_y6ubx")
+pockets = NodePath("VBoxContainer/Pockets")
+backpack_item_container = NodePath("VBoxContainer/HBoxContainer/ItemContainer")
+slots = [NodePath("GridContainer/HBoxContainer/Helmet/HelmetSlot"), NodePath("GridContainer/HBoxContainer/Facecover/FacecoverSlot"), NodePath("GridContainer/HBoxContainer/Earpiece/EarpieceSlot"), NodePath("VBoxContainer/Tactical Rig/TactialRigSlot"), NodePath("GridContainer/HBoxContainer2/Armband/ArmbandSlot"), NodePath("GridContainer/HBoxContainer2/BodyArmour/BodyArmourSlot"), NodePath("GridContainer/HBoxContainer2/Eyewear/EyewearSlot"), NodePath("GridContainer/VBoxContainer/HBoxContainer/PrimaryWeapon/PrimaryWeaponSlot"), NodePath("GridContainer/VBoxContainer/HBoxContainer/Pistol/PistolSlot"), NodePath("GridContainer/VBoxContainer/SecondaryWeapons/SecondaryWeaponSlot"), NodePath("VBoxContainer/HBoxContainer/Backpack/BackpackSlot")]
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.57902, 0.57902, 0.57902, 0.392157)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1304.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Tactical Rig" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Panel" type="Panel" parent="VBoxContainer/Tactical Rig"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Tactical Rig/Panel"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 300.0
+offset_bottom = 62.0
+text = "Tactical Rig"
+label_settings = ExtResource("2_kgdpn")
+
+[node name="TactialRigSlot" parent="VBoxContainer/Tactical Rig" instance=ExtResource("6_5aqjt")]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+SLOT_TYPE = 2
+
+[node name="Pockets" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(700, 207)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Backpack" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer/Backpack"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Backpack/Panel"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 300.0
+offset_bottom = 62.0
+text = "Backpack"
+label_settings = ExtResource("2_kgdpn")
+
+[node name="BackpackSlot" parent="VBoxContainer/HBoxContainer/Backpack" instance=ExtResource("6_5aqjt")]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+SLOT_TYPE = 2
+
+[node name="ItemContainer" parent="VBoxContainer/HBoxContainer" instance=ExtResource("4_6ebbx")]
+custom_minimum_size = Vector2(1000, 1000)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 1212.0
+grow_vertical = 2
+
+[node name="HSeparator3" type="HSeparator" parent="GridContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GridContainer"]
+layout_mode = 2
+
+[node name="Helmet" type="VBoxContainer" parent="GridContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="GridContainer/HBoxContainer/Helmet"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GridContainer/HBoxContainer/Helmet/Panel"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 300.0
+offset_bottom = 62.0
+text = "Helmet"
+label_settings = ExtResource("2_kgdpn")
+
+[node name="HelmetSlot" parent="GridContainer/HBoxContainer/Helmet" instance=ExtResource("6_5aqjt")]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+
+[node name="Facecover" type="VBoxContainer" parent="GridContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="Panel" type="Panel" parent="GridContainer/HBoxContainer/Facecover"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GridContainer/HBoxContainer/Facecover/Panel"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 300.0
+offset_bottom = 62.0
+text = "Facecover"
+label_settings = ExtResource("2_kgdpn")
+
+[node name="FacecoverSlot" parent="GridContainer/HBoxContainer/Facecover" instance=ExtResource("6_5aqjt")]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+
+[node name="Earpiece" type="VBoxContainer" parent="GridContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="GridContainer/HBoxContainer/Earpiece"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GridContainer/HBoxContainer/Earpiece/Panel"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 300.0
+offset_bottom = 62.0
+text = "Earpiece"
+label_settings = ExtResource("2_kgdpn")
+
+[node name="EarpieceSlot" parent="GridContainer/HBoxContainer/Earpiece" instance=ExtResource("6_5aqjt")]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="GridContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="GridContainer"]
+layout_mode = 2
+
+[node name="Armband" type="VBoxContainer" parent="GridContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="GridContainer/HBoxContainer2/Armband"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GridContainer/HBoxContainer2/Armband/Panel"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 300.0
+offset_bottom = 62.0
+text = "Armband"
+label_settings = ExtResource("2_kgdpn")
+
+[node name="ArmbandSlot" parent="GridContainer/HBoxContainer2/Armband" instance=ExtResource("6_5aqjt")]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+
+[node name="BodyArmour" type="VBoxContainer" parent="GridContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="Panel" type="Panel" parent="GridContainer/HBoxContainer2/BodyArmour"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GridContainer/HBoxContainer2/BodyArmour/Panel"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 300.0
+offset_bottom = 62.0
+text = "Body Armour"
+label_settings = ExtResource("2_kgdpn")
+
+[node name="BodyArmourSlot" parent="GridContainer/HBoxContainer2/BodyArmour" instance=ExtResource("6_5aqjt")]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+
+[node name="Eyewear" type="VBoxContainer" parent="GridContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="GridContainer/HBoxContainer2/Eyewear"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GridContainer/HBoxContainer2/Eyewear/Panel"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 300.0
+offset_bottom = 62.0
+text = "Eyewear"
+label_settings = ExtResource("2_kgdpn")
+
+[node name="EyewearSlot" parent="GridContainer/HBoxContainer2/Eyewear" instance=ExtResource("6_5aqjt")]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="GridContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GridContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PrimaryWeapon" type="VBoxContainer" parent="GridContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="GridContainer/VBoxContainer/HBoxContainer/PrimaryWeapon"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GridContainer/VBoxContainer/HBoxContainer/PrimaryWeapon/Panel"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 300.0
+offset_bottom = 62.0
+text = "Primary Weapon"
+label_settings = ExtResource("2_kgdpn")
+
+[node name="PrimaryWeaponSlot" parent="GridContainer/VBoxContainer/HBoxContainer/PrimaryWeapon" instance=ExtResource("6_5aqjt")]
+custom_minimum_size = Vector2(900, 300)
+layout_mode = 2
+SLOT_TYPE = 1
+WEAPON_SLOT_TYPE = 0
+
+[node name="Pistol" type="VBoxContainer" parent="GridContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="GridContainer/VBoxContainer/HBoxContainer/Pistol"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GridContainer/VBoxContainer/HBoxContainer/Pistol/Panel"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 300.0
+offset_bottom = 62.0
+text = "Pistol"
+label_settings = ExtResource("2_kgdpn")
+
+[node name="PistolSlot" parent="GridContainer/VBoxContainer/HBoxContainer/Pistol" instance=ExtResource("6_5aqjt")]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+SLOT_TYPE = 1
+WEAPON_SLOT_TYPE = 1
+
+[node name="HSeparator" type="HSeparator" parent="GridContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="SecondaryWeapons" type="VBoxContainer" parent="GridContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Panel" type="Panel" parent="GridContainer/VBoxContainer/SecondaryWeapons"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GridContainer/VBoxContainer/SecondaryWeapons/Panel"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 300.0
+offset_bottom = 62.0
+text = "Secondary Weapon"
+label_settings = ExtResource("2_kgdpn")
+
+[node name="SecondaryWeaponSlot" parent="GridContainer/VBoxContainer/SecondaryWeapons" instance=ExtResource("6_5aqjt")]
+custom_minimum_size = Vector2(900, 300)
+layout_mode = 2
+SLOT_TYPE = 1
+WEAPON_SLOT_TYPE = 0

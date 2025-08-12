@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Gun" load_steps=5 format=3 uid="uid://chx5qbs2x0nn0"]
+
+[ext_resource type="Script" uid="uid://b6n7l4uf3le1x" path="res://pickups/mags/scripts/mag.gd" id="1_7h4ca"]
+[ext_resource type="Resource" uid="uid://ci4bk8kq77u" path="res://pickups/mags/data/Ak30Mag.tres" id="2_7h4ca"]
+[ext_resource type="Script" uid="uid://dj185ugv3q7qt" path="res://pickups/guns/scripts/gun.gd" id="2_dg3xg"]
+[ext_resource type="Texture2D" uid="uid://d4dmwj64mhx52" path="res://assets/Guns/01 - Individual sprites/Guns/AK 47 [96x48].png" id="3_upiqo"]
+
+[resource]
+script = ExtResource("2_dg3xg")
+AMMO_TYPE = "7.62"
+FIRERATE = 0.1
+CAN_AUTO_FIRE = true
+isAutoFireMode = false
+ATTACHMENT_POINTS = {
+"Muzzle": Vector2(37, -6),
+"PistolGrip": Vector2(-13, 0)
+}
+GUN_TYPE = 0
+SUB_GUN_TYPE = 0
+COMPATABLE_MAGS = Array[ExtResource("1_7h4ca")]([ExtResource("2_7h4ca")])
+TYPE = 1
+ICON = ExtResource("3_upiqo")
+NAME = "Ak47"
+RARITY = 0
+HAND_HOLDING_OFFSET = Vector2(0, 0)
+metadata/_custom_type_script = "uid://dj185ugv3q7qt"

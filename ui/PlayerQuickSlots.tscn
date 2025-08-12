@@ -1,0 +1,86 @@
+[gd_scene load_steps=2 format=3 uid="uid://bi0bxy8adeydd"]
+
+[ext_resource type="Script" uid="uid://bsabvg8fc0vbv" path="res://ui/scripts/player_quick_slots.gd" id="1_aevl8"]
+
+[node name="PlayerQuickSlots" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_aevl8")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -576.0
+offset_right = 576.0
+offset_bottom = 125.0
+grow_horizontal = 2
+
+[node name="Quick Slot Container" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Slot0" type="ColorRect" parent="Panel/Quick Slot Container"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+color = Color(0.440979, 0.440979, 0.440979, 0.737255)
+
+[node name="Slot1" type="ColorRect" parent="Panel/Quick Slot Container"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+color = Color(0.440979, 0.440979, 0.440979, 0.737255)
+
+[node name="Slot2" type="ColorRect" parent="Panel/Quick Slot Container"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+color = Color(0.440979, 0.440979, 0.440979, 0.737255)
+
+[node name="Slot3" type="ColorRect" parent="Panel/Quick Slot Container"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+color = Color(0.440979, 0.440979, 0.440979, 0.737255)
+
+[node name="Slot4" type="ColorRect" parent="Panel/Quick Slot Container"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+color = Color(0.440979, 0.440979, 0.440979, 0.737255)
+
+[node name="Slot5" type="ColorRect" parent="Panel/Quick Slot Container"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+color = Color(0.440979, 0.440979, 0.440979, 0.737255)
+
+[node name="Slot6" type="ColorRect" parent="Panel/Quick Slot Container"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+color = Color(0.440979, 0.440979, 0.440979, 0.737255)
+
+[node name="Slot7" type="ColorRect" parent="Panel/Quick Slot Container"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+color = Color(0.440979, 0.440979, 0.440979, 0.737255)
+
+[node name="Slot8" type="ColorRect" parent="Panel/Quick Slot Container"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+color = Color(0.440979, 0.440979, 0.440979, 0.737255)
+
+[node name="Slot9" type="ColorRect" parent="Panel/Quick Slot Container"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+color = Color(0.440979, 0.440979, 0.440979, 0.737255)
