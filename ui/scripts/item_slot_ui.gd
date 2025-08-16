@@ -4,6 +4,7 @@ class_name ItemSlot
 @export var SLOT_TYPE: Game.ITEM_TYPES = Game.ITEM_TYPES.Item
 @export var WEAPON_SLOT_TYPE: Game.GUN_TYPES = Game.GUN_TYPES.None
 @export var CONTAINER_ITEM:Item
+var SLOT_NUM:int=0
 var dragableItem:DragableItem
 
 func clear():

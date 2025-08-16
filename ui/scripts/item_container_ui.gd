@@ -11,14 +11,18 @@ func setup(itemContainer:ItemContainer):
 	# Runs when player inventory is open
 	clearSlots()
 	if (itemContainer):
+		itemContainer.setupItemSlotPosistions()
 		addSlots(itemContainer)
 		updateSlots(itemContainer)
 
 func updateSlots(itemContainer:ItemContainer):
 	var containerContents:Array = itemContainer.items
 	for i in range(min(containerContents.size(),slots.size())):
-		var slot:ItemSlot = slots[i]
 		var item:Item = containerContents[i]
+		var slot:ItemSlot
+		var slotNum:int = itemContainer.itemSlotPosistions[item]
+		
+		slot = slots[slotNum]
 		slot.update(item)
 
 func addSlots(itemContainer:ItemContainer):
@@ -28,5 +32,6 @@ func addSlots(itemContainer:ItemContainer):
 			var slotScene = preload("res://ui/ItemSlot.tscn")
 			var slot = slotScene.instantiate()
 			slot.CONTAINER_ITEM = itemContainer
+			slot.SLOT_NUM = i
 			slots.append(slot)
 			add_child(slot)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://crsaypl43mwna"]
 
-[ext_resource type="Script" uid="uid://vswu0fafyrrc" path="res://ui/scripts/interact_panel_ui.gd" id="1_4u34t"]
+[ext_resource type="Script" uid="uid://vswu0fafyrrc" path="res://ui/scripts/player_interact_panel_ui.gd" id="1_4u34t"]
 
 [node name="InteractPanel" type="PanelContainer"]
 anchors_preset = -1
