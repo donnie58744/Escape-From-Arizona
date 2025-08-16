@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://co5ekuesgysyq" path="res://assets/topdown-shooter/Spritesheet/spritesheet_characters.png" id="5_xs2b6"]
 [ext_resource type="PackedScene" uid="uid://qh63ih3svluk" path="res://ui/GunInfoUI.tscn" id="6_b63wt"]
 [ext_resource type="PackedScene" uid="uid://cxlg2y5watvs5" path="res://ui/CharacterInventoryUI.tscn" id="6_qrljh"]
-[ext_resource type="PackedScene" uid="uid://crsaypl43mwna" path="res://ui/InteractPanelUI.tscn" id="7_b63wt"]
+[ext_resource type="PackedScene" uid="uid://crsaypl43mwna" path="res://ui/PlayerInteractPanelUI.tscn" id="7_b63wt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yj4gv"]
 radius = 16.1245
@@ -26,12 +26,18 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D" groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_quick_slots_ui", "inventory_ui", "interact_panel_ui", "gun_info_ui", "pickup_timer", "right_hand") groups=["player"]]
 top_level = true
 z_index = 6
 collision_layer = 5
 script = ExtResource("1_yj4gv")
+player_quick_slots_ui = NodePath("UI/PlayerQuickSlots")
+inventory_ui = NodePath("UI/PlayerInventory")
+interact_panel_ui = NodePath("UI/InteractPanel")
+gun_info_ui = NodePath("UI/GunInfo")
 inventory = ExtResource("2_b63wt")
+pickup_timer = NodePath("PickupTimer")
+right_hand = NodePath("RightHand")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)

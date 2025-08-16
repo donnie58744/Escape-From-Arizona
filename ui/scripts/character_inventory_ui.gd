@@ -13,11 +13,11 @@ var slotMoveInto:ItemSlot
 
 func _ready() -> void:
 	visible = false
-	
 	update_slots()
 
 func connectDragSig(slot:ItemSlot):
-	slot.connect("gui_input", Callable(self, "slot_gui_input").bind(slot))
+	if (!slot.is_connected("gui_input",Callable(self, "slot_gui_input").bind(slot))):
+		slot.connect("gui_input", Callable(self, "slot_gui_input").bind(slot))
 
 # TODO MAKE BETTER WTF EVEN IS ALL THIS
 func slot_gui_input(event: InputEvent, slot:ItemSlot):
@@ -33,28 +33,16 @@ func slot_gui_input(event: InputEvent, slot:ItemSlot):
 			if (slotMoveInto!=null):
 				# Move into slot if the ITEM_TYPES match up
 				if (character_inventory.canPutInSlotType(slotMoveInto,draggingItem)):
-					print("MOVE INTO SLOT")
-					# TODO add itemslot numbers or something, and in the itemcontainer add function have a slot number parameter
-					# TODO REMOVE FROM PLAYER INVENTORY AT SLOT THEN ADD IT BACK AT SLOT
-					
-					
 					character_inventory.remove(draggingItem.item,slot,slot.CONTAINER_ITEM)
-					character_inventory.add(draggingItem.item,slotMoveInto,slotMoveInto.CONTAINER_ITEM)
-					draggingItem.slot.dragableItem = null
-					slotMoveInto.update(draggingItem.item)
-					draggingItem.queue_free()
-					draggingItem = null
-				# If not then move dragging item from where it came
-				else:
-					print("WRONG SLOT TYPE")
-					if (draggingItem != null):
-						draggingItem.global_position = slot.global_position
+					if(character_inventory.add(draggingItem.item,slotMoveInto,slotMoveInto.CONTAINER_ITEM)):
+						draggingItem.slot.dragableItem = null
+						slotMoveInto.update(draggingItem.item)
+						draggingItem.queue_free()
 						draggingItem = null
-			else:
-				print("NO SLOTMOVEINTO")
-				if (draggingItem != null):
-					draggingItem.global_position = slot.global_position
-					draggingItem = null
+						return
+			if (draggingItem != null):
+				slot.update(draggingItem.item)
+				draggingItem = null
 
 	if (event is InputEventMouseMotion and draggingItem!=null):
 		draggingItem.global_position = get_global_mouse_position() - drag_offset
@@ -67,12 +55,10 @@ func slot_gui_input(event: InputEvent, slot:ItemSlot):
 				# Check if Hovered slot is empty
 				if (hovered.dragableItem==null):
 					slotMoveInto=hovered
-					print("HOVERED:",hovered)
+					print("HOVERED:",hovered.SLOT_NUM)
 			# If not an item slot then the player must be hovering over something it cant be put into
 			else:
 				slotMoveInto = null
-			
-		print(slotMoveInto)
 
 func showHide():
 	showInventory = !showInventory

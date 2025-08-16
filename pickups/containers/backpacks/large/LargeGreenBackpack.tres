@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("4_esie8")
 items = Array[ExtResource("2_nr4ga")]([])
-CONTAINER_SIZE = 2
+CONTAINER_SIZE = 30
 TYPE = 2
 ICON = ExtResource("1_nh8j7")
 NAME = "Large Green"

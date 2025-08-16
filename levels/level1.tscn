@@ -1,12 +1,18 @@
-[gd_scene load_steps=26 format=4 uid="uid://c5lx7qc7n70ab"]
+[gd_scene load_steps=24 format=4 uid="uid://c5lx7qc7n70ab"]
 
 [ext_resource type="Texture2D" uid="uid://b0eb66wm6kaow" path="res://assets/topdown-shooter/Tilesheet/tilesheet_complete.png" id="1_sjb42"]
 [ext_resource type="PackedScene" uid="uid://d1dt4htywl0oq" path="res://chars/player.tscn" id="2_pdtm5"]
 [ext_resource type="PackedScene" uid="uid://bk4asqlje361t" path="res://pickups/PickupItem.tscn" id="3_8hd6v"]
-[ext_resource type="Resource" uid="uid://b0d4u642se3s3" path="res://pickups/containers/backpacks/large/LargeGreenBackpack.tres" id="4_8hd6v"]
+[ext_resource type="Script" uid="uid://ccnml0hlynlf6" path="res://pickups/scripts/item.gd" id="4_045es"]
+[ext_resource type="Resource" uid="uid://chx5qbs2x0nn0" path="res://pickups/guns/data/Ak47.tres" id="4_ua5ty"]
+[ext_resource type="Script" uid="uid://de47f2fjkugvw" path="res://pickups/containers/backpacks/scripts/backpack.gd" id="5_omn1t"]
+[ext_resource type="Texture2D" uid="uid://v7la643mwfpv" path="res://assets/backpacks/icons/large_green_backpack.png" id="6_lf3p4"]
 [ext_resource type="Resource" uid="uid://ci4bk8kq77u" path="res://pickups/mags/data/Ak30Mag.tres" id="7_yydhl"]
 [ext_resource type="Script" uid="uid://b6n7l4uf3le1x" path="res://pickups/mags/scripts/mag.gd" id="8_045es"]
 [ext_resource type="Script" uid="uid://dj185ugv3q7qt" path="res://pickups/guns/scripts/gun.gd" id="8_omn1t"]
+[ext_resource type="Texture2D" uid="uid://d4dmwj64mhx52" path="res://assets/Guns/01 - Individual sprites/Guns/AK 47 [96x48].png" id="9_bekh1"]
+[ext_resource type="Resource" uid="uid://ddgiv3nxfn077" path="res://pickups/guns/data/Colt45.tres" id="9_omn1t"]
+[ext_resource type="Texture2D" uid="uid://by00lxi553pu0" path="res://assets/Guns/01 - Individual sprites/Bullets & Ammo/AK 47/AK 47 - Mag.png" id="11_8bcou"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pdtm5"]
 texture = ExtResource("1_sjb42")
@@ -22450,32 +22456,6 @@ texture = ExtResource("1_sjb42")
 physics_layer_0/collision_layer = 7
 sources/0 = SubResource("TileSetAtlasSource_ua5ty")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yydhl"]
-load_path = "res://.godot/imported/AK 47 [96x48].png-b9079ed81d7aff314e8d28ab26910f50.ctex"
-
-[sub_resource type="Resource" id="Resource_bekh1"]
-script = ExtResource("8_omn1t")
-AMMO_TYPE = "7.62"
-FIRERATE = 0.1
-CAN_AUTO_FIRE = true
-isAutoFireMode = false
-ATTACHMENT_POINTS = {
-"Muzzle": Vector2(38, -6),
-&"PistolGrip": Vector2(-14, 1)
-}
-GUN_TYPE = 0
-SUB_GUN_TYPE = 0
-COMPATABLE_MAGS = Array[ExtResource("8_045es")]([ExtResource("7_yydhl")])
-TYPE = 1
-ICON = SubResource("CompressedTexture2D_yydhl")
-NAME = "Ak47"
-RARITY = 0
-HAND_HOLDING_OFFSET = Vector2(0, 0)
-metadata/_custom_type_script = "uid://dj185ugv3q7qt"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8bcou"]
-load_path = "res://.godot/imported/AK 47 [96x48].png-b9079ed81d7aff314e8d28ab26910f50.ctex"
-
 [sub_resource type="Resource" id="Resource_f7u7y"]
 script = ExtResource("8_omn1t")
 AMMO_TYPE = "7.62"
@@ -22483,83 +22463,51 @@ FIRERATE = 0.1
 CAN_AUTO_FIRE = true
 isAutoFireMode = false
 ATTACHMENT_POINTS = {
-"Muzzle": Vector2(38, -6),
-&"PistolGrip": Vector2(-14, 1)
+"Muzzle": Vector2(37, -6),
+"PistolGrip": Vector2(-13, 0)
 }
 GUN_TYPE = 0
 SUB_GUN_TYPE = 0
 COMPATABLE_MAGS = Array[ExtResource("8_045es")]([ExtResource("7_yydhl")])
 TYPE = 1
-ICON = SubResource("CompressedTexture2D_8bcou")
+ICON = ExtResource("9_bekh1")
 NAME = "Ak47"
 RARITY = 0
 HAND_HOLDING_OFFSET = Vector2(0, 0)
 metadata/_custom_type_script = "uid://dj185ugv3q7qt"
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jq2cn"]
-load_path = "res://.godot/imported/Revolver - Colt 45 [64x32].png-223ef5890ee261409d617b684c0a001d.ctex"
+[sub_resource type="Resource" id="Resource_jq2cn"]
+script = ExtResource("8_045es")
+currentAmmo = 0
+AMMO_CAPACITY = 30
+TYPE = 0
+ICON = ExtResource("11_8bcou")
+NAME = "Ak 30 Round"
+RARITY = 0
+HAND_HOLDING_OFFSET = Vector2(0, 0)
+metadata/_custom_type_script = "uid://b6n7l4uf3le1x"
 
 [sub_resource type="Resource" id="Resource_a5s8o"]
-script = ExtResource("8_omn1t")
-AMMO_TYPE = ".45 ACP"
-FIRERATE = 0.2
-CAN_AUTO_FIRE = false
-isAutoFireMode = false
-ATTACHMENT_POINTS = {
-"Muzzle": Vector2(22, -6),
-&"PistolGrip": Vector2(-13, 0)
-}
-GUN_TYPE = 1
-SUB_GUN_TYPE = 1
-COMPATABLE_MAGS = Array[ExtResource("8_045es")]([])
-TYPE = 1
-ICON = SubResource("CompressedTexture2D_jq2cn")
-NAME = "Colt 45 Revolver"
-RARITY = 0
-HAND_HOLDING_OFFSET = Vector2(0, 0)
-metadata/_custom_type_script = "uid://dj185ugv3q7qt"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ls4ot"]
-load_path = "res://.godot/imported/AK 47 - Mag.png-beb2f5e38da7541f4998ea6d5bdf14ca.ctex"
-
-[sub_resource type="Resource" id="Resource_tx362"]
 script = ExtResource("8_045es")
 currentAmmo = 0
 AMMO_CAPACITY = 30
 TYPE = 0
-ICON = SubResource("CompressedTexture2D_ls4ot")
+ICON = ExtResource("11_8bcou")
 NAME = "Ak 30 Round"
 RARITY = 0
 HAND_HOLDING_OFFSET = Vector2(0, 0)
 metadata/_custom_type_script = "uid://b6n7l4uf3le1x"
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_l7nqg"]
-load_path = "res://.godot/imported/AK 47 - Mag.png-beb2f5e38da7541f4998ea6d5bdf14ca.ctex"
-
-[sub_resource type="Resource" id="Resource_w7ck5"]
-script = ExtResource("8_045es")
-currentAmmo = 0
-AMMO_CAPACITY = 30
-TYPE = 0
-ICON = SubResource("CompressedTexture2D_l7nqg")
-NAME = "Ak 30 Round"
+[sub_resource type="Resource" id="Resource_045es"]
+script = ExtResource("5_omn1t")
+items = Array[ExtResource("4_045es")]([SubResource("Resource_f7u7y"), SubResource("Resource_jq2cn"), SubResource("Resource_a5s8o")])
+CONTAINER_SIZE = 30
+TYPE = 2
+ICON = ExtResource("6_lf3p4")
+NAME = "Large Green"
 RARITY = 0
 HAND_HOLDING_OFFSET = Vector2(0, 0)
-metadata/_custom_type_script = "uid://b6n7l4uf3le1x"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2nn5w"]
-load_path = "res://.godot/imported/AK 47 - Mag.png-beb2f5e38da7541f4998ea6d5bdf14ca.ctex"
-
-[sub_resource type="Resource" id="Resource_ou4v7"]
-script = ExtResource("8_045es")
-currentAmmo = 0
-AMMO_CAPACITY = 30
-TYPE = 0
-ICON = SubResource("CompressedTexture2D_2nn5w")
-NAME = "Ak 30 Round"
-RARITY = 0
-HAND_HOLDING_OFFSET = Vector2(0, 0)
-metadata/_custom_type_script = "uid://b6n7l4uf3le1x"
+metadata/_custom_type_script = "uid://de47f2fjkugvw"
 
 [node name="Level1" type="Node2D"]
 
@@ -22582,32 +22530,48 @@ tile_map_data = PackedByteArray("AADv//X/AAAnABAAAGDv//T/AAAoABAAAGDv//P/AAApABA
 tile_set = SubResource("TileSet_61w3m")
 
 [node name="PickupItem" parent="." instance=ExtResource("3_8hd6v")]
-position = Vector2(32, -126)
-item = ExtResource("4_8hd6v")
+position = Vector2(-14, 6)
+item = ExtResource("4_ua5ty")
 
 [node name="PickupItem2" parent="." instance=ExtResource("3_8hd6v")]
-position = Vector2(80, -125)
-item = SubResource("Resource_bekh1")
-
-[node name="PickupItem7" parent="." instance=ExtResource("3_8hd6v")]
-position = Vector2(35, -169)
-item = SubResource("Resource_f7u7y")
+position = Vector2(-22, -41)
+item = ExtResource("4_ua5ty")
 
 [node name="PickupItem3" parent="." instance=ExtResource("3_8hd6v")]
-position = Vector2(-2, -76)
-item = SubResource("Resource_a5s8o")
+position = Vector2(29, 16)
+item = ExtResource("4_ua5ty")
 
 [node name="PickupItem4" parent="." instance=ExtResource("3_8hd6v")]
-position = Vector2(68, -78)
-item = SubResource("Resource_tx362")
-randomizeVals = true
+position = Vector2(66, 4)
+item = ExtResource("4_ua5ty")
 
 [node name="PickupItem5" parent="." instance=ExtResource("3_8hd6v")]
-position = Vector2(111, -70)
-item = SubResource("Resource_w7ck5")
-randomizeVals = true
+position = Vector2(69, -36)
+item = ExtResource("4_ua5ty")
 
 [node name="PickupItem6" parent="." instance=ExtResource("3_8hd6v")]
-position = Vector2(68, -46)
-item = SubResource("Resource_ou4v7")
+position = Vector2(26, -67)
+item = ExtResource("4_ua5ty")
+
+[node name="PickupItem7" parent="." instance=ExtResource("3_8hd6v")]
+position = Vector2(0, -144)
+item = ExtResource("7_yydhl")
 randomizeVals = true
+
+[node name="PickupItem8" parent="." instance=ExtResource("3_8hd6v")]
+position = Vector2(14, -189)
+item = ExtResource("7_yydhl")
+randomizeVals = true
+
+[node name="PickupItem9" parent="." instance=ExtResource("3_8hd6v")]
+position = Vector2(53, -156)
+item = ExtResource("7_yydhl")
+randomizeVals = true
+
+[node name="PickupItem10" parent="." instance=ExtResource("3_8hd6v")]
+position = Vector2(136, -200)
+item = SubResource("Resource_045es")
+
+[node name="PickupItem11" parent="." instance=ExtResource("3_8hd6v")]
+position = Vector2(100, -97)
+item = ExtResource("9_omn1t")
