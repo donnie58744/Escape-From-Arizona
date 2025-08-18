@@ -1,6 +1,5 @@
-[gd_resource type="Resource" script_class="Gun" load_steps=4 format=3 uid="uid://ddgiv3nxfn077"]
+[gd_resource type="Resource" script_class="Gun" load_steps=3 format=3 uid="uid://ddgiv3nxfn077"]
 
-[ext_resource type="Script" uid="uid://b6n7l4uf3le1x" path="res://pickups/mags/scripts/mag.gd" id="1_3bioo"]
 [ext_resource type="Texture2D" uid="uid://cxptapxk6msf8" path="res://assets/Guns/01 - Individual sprites/Guns/Revolver - Colt 45 [64x32].png" id="2_3bioo"]
 [ext_resource type="Script" uid="uid://dj185ugv3q7qt" path="res://pickups/guns/scripts/gun.gd" id="3_44jkn"]
 
@@ -14,10 +13,11 @@ ATTACHMENT_POINTS = {
 "Muzzle": Vector2(22, -6),
 "PistolGrip": Vector2(-14, 0)
 }
-GUN_TYPE = 1
-SUB_GUN_TYPE = 1
-COMPATABLE_MAGS = Array[ExtResource("1_3bioo")]([])
+GUN_TYPE = 2
+SUB_GUN_TYPE = 2
+COMPATABLE_MAGS = Array[int]([])
 TYPE = 1
+ITEM_REFRENCE = 2
 ICON = ExtResource("2_3bioo")
 NAME = "Colt45"
 RARITY = 0

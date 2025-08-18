@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cxlg2y5watvs5"]
 
-[ext_resource type="Script" uid="uid://bk615yi8g0m" path="res://ui/scripts/character_inventory_ui.gd" id="1_y6ubx"]
+[ext_resource type="Script" uid="uid://bk615yi8g0m" path="res://chars/inv/ui/scripts/character_inventory_ui.gd" id="1_y6ubx"]
 [ext_resource type="LabelSettings" uid="uid://dr3p663hvbk5l" path="res://presets/playerInventoryIconNameLabel.tres" id="2_kgdpn"]
 [ext_resource type="PackedScene" uid="uid://2dopefbhlvjx" path="res://ui/ItemContainerUi.tscn" id="4_6ebbx"]
 [ext_resource type="PackedScene" uid="uid://bov6ks0tqqqen" path="res://ui/ItemSlot.tscn" id="6_5aqjt"]
@@ -263,7 +263,7 @@ label_settings = ExtResource("2_kgdpn")
 custom_minimum_size = Vector2(900, 300)
 layout_mode = 2
 SLOT_TYPE = 1
-WEAPON_SLOT_TYPE = 0
+WEAPON_SLOT_TYPE = 1
 
 [node name="Pistol" type="VBoxContainer" parent="GridContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -284,7 +284,7 @@ label_settings = ExtResource("2_kgdpn")
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 SLOT_TYPE = 1
-WEAPON_SLOT_TYPE = 1
+WEAPON_SLOT_TYPE = 2
 
 [node name="HSeparator" type="HSeparator" parent="GridContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 5)
@@ -310,4 +310,4 @@ label_settings = ExtResource("2_kgdpn")
 custom_minimum_size = Vector2(900, 300)
 layout_mode = 2
 SLOT_TYPE = 1
-WEAPON_SLOT_TYPE = 0
+WEAPON_SLOT_TYPE = 1

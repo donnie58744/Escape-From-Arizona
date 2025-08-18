@@ -1,2 +1,3 @@
+@tool
 extends ItemContainer
 class_name Backpack

@@ -1,11 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://d1dt4htywl0oq"]
+[gd_scene load_steps=13 format=3 uid="uid://d1dt4htywl0oq"]
 
-[ext_resource type="Script" uid="uid://dujoem8fra4c7" path="res://scripts/player.gd" id="1_yj4gv"]
+[ext_resource type="Script" uid="uid://dujoem8fra4c7" path="res://chars/scripts/player.gd" id="1_yj4gv"]
 [ext_resource type="Resource" uid="uid://bnh83gl8ja2nx" path="res://chars/inv/player_inventory.tres" id="2_b63wt"]
+[ext_resource type="Resource" uid="uid://b8wnilh5gt830" path="res://chars/player_character.tres" id="2_vx763"]
 [ext_resource type="PackedScene" uid="uid://bi0bxy8adeydd" path="res://ui/PlayerQuickSlots.tscn" id="2_xs2b6"]
+[ext_resource type="Script" uid="uid://dnukeelfl8oo3" path="res://chars/character_hand.gd" id="3_5t6ff"]
 [ext_resource type="Texture2D" uid="uid://co5ekuesgysyq" path="res://assets/topdown-shooter/Spritesheet/spritesheet_characters.png" id="5_xs2b6"]
 [ext_resource type="PackedScene" uid="uid://qh63ih3svluk" path="res://ui/GunInfoUI.tscn" id="6_b63wt"]
-[ext_resource type="PackedScene" uid="uid://cxlg2y5watvs5" path="res://ui/CharacterInventoryUI.tscn" id="6_qrljh"]
+[ext_resource type="PackedScene" uid="uid://cxlg2y5watvs5" path="res://chars/inv/ui/CharacterInventoryUI.tscn" id="6_qrljh"]
 [ext_resource type="PackedScene" uid="uid://crsaypl43mwna" path="res://ui/PlayerInteractPanelUI.tscn" id="7_b63wt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yj4gv"]
@@ -35,7 +37,7 @@ player_quick_slots_ui = NodePath("UI/PlayerQuickSlots")
 inventory_ui = NodePath("UI/PlayerInventory")
 interact_panel_ui = NodePath("UI/InteractPanel")
 gun_info_ui = NodePath("UI/GunInfo")
-inventory = ExtResource("2_b63wt")
+character = ExtResource("2_vx763")
 pickup_timer = NodePath("PickupTimer")
 right_hand = NodePath("RightHand")
 
@@ -48,6 +50,7 @@ shape = SubResource("CircleShape2D_yj4gv")
 [node name="RightHand" type="Sprite2D" parent="."]
 z_index = 3
 position = Vector2(15, 13)
+script = ExtResource("3_5t6ff")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_b63wt")
@@ -57,7 +60,8 @@ animation = &"walking"
 
 [node name="PlayerQuickSlots" parent="UI" instance=ExtResource("2_xs2b6")]
 
-[node name="PlayerInventory" parent="UI" instance=ExtResource("6_qrljh")]
+[node name="PlayerInventory" parent="UI" node_paths=PackedStringArray("right_hand") instance=ExtResource("6_qrljh")]
+right_hand = NodePath("../../RightHand")
 character_inventory = ExtResource("2_b63wt")
 
 [node name="GunInfo" parent="UI" instance=ExtResource("6_b63wt")]

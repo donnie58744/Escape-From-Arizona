@@ -9,14 +9,14 @@ func _ready() -> void:
 	pickup_label.hide()
 
 func setup(player:Player,item:Item):
-	if (player.inventory.canEquip(item)):
+	if (player.character.inventory.canEquip(item)):
 		var getKey = OS.get_keycode_string(InputMap.action_get_events("equip")[0].physical_keycode)
 		equip_label.text = "Press " + "`" + getKey + "`" + " To Equip"
 		equip_label.show()
 		show()
 	else:
 		equip_label.hide()
-	if (player.inventory.canPickup(item,player.inventory.findContainer())):
+	if (player.character.inventory.canPickup(item,player.character.inventory.findContainer())):
 		var getKey = OS.get_keycode_string(InputMap.action_get_events("interact")[0].physical_keycode)
 		pickup_label.text = "Press " + "`" + getKey+ "`" + " To Pickup"
 		pickup_label.show()

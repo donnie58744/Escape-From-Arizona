@@ -1,3 +1,4 @@
+@tool
 extends GunProperties
 class_name Gun
 

@@ -1,28 +1,41 @@
 extends Node
-const WALKING_SPEED = 100
-const RUNNING_SPEED = 200
-const PICKUP_INTERVAL:float = 0.4
-
-const held_item_throw_speed = 300
-const held_item_throw_distance = 50
-
-var playerMaxInventorySize = 10
-var playerQuickSlotsSize = 10
 
 # !!!!KEEP ITEM WEIGHTS EQUAL TO 100!!!!
 enum RARITIES {Common, Uncommon, Rare, Legendary, Nothing}
 enum ITEM_TYPES {Mag,Gun,Backpack,Item}
-enum GUN_TYPES {MainWeapon,Pistol,None}
-enum SUB_GUN_TYPES {AssaultRifle,Revolver}
-var ITEMS:Dictionary = {
-	"Guns":[
-		"Ak47AssaultRifle","Colt45Revolver"
-	],
-	"Mags":{
-		
+enum GUN_TYPES {None,MainWeapon,Pistol}
+enum SUB_GUN_TYPES {None,AssaultRifle,Revolver}
+enum GUNS {None,Ak47AssaultRifle,Colt45Revolver}
+enum MAGS {None,Ak47_30_Round_Mag}
+enum BACKPACKS {None,Large_Green_Backpack}
+
+var ITEM_SPAWN_DATA:Dictionary = {
+	ITEM_TYPES.Gun:{
+		RARITIES.Common:{
+			GUNS.Ak47AssaultRifle:{
+				"RESOURCE_PATH":"res://pickups/guns/ak47AssaultRifle.tscn",
+				"SPAWN_WEIGHT":50,
+			},
+			GUNS.Colt45Revolver:{
+				"RESOURCE_PATH":"res://pickups/guns/colt45Revolver.tscn",
+				"SPAWN_WEIGHT":50,
+			}
+		}
 	},
-	"Backpacks":{
-		
+	ITEM_TYPES.Mag:{
+		RARITIES.Common:{
+			MAGS.Ak47_30_Round_Mag:{
+				"RESOURCE_PATH":"res://pickups/mags/ak47_30_round_mag.tscn",
+				"SPAWN_WEIGHT":100,
+			}
+		},
+	},
+	ITEM_TYPES.Backpack:{
+		RARITIES.Common:{
+			BACKPACKS.Large_Green_Backpack:{
+				
+			}
+		}
 	}
 }
 
@@ -43,33 +56,3 @@ const rarities = {
 		"SPAWN_WEIGHT":2
 	}
 	}
-
-var guns = {
-	"Common":{
-		"Ak47AssaultRifle":{
-			"RESOURCE_PATH":"res://pickups/guns/ak47AssaultRifle.tscn",
-			"SPAWN_WEIGHT":50,
-		},
-		"Colt45Revolver":{
-			"RESOURCE_PATH":"res://pickups/guns/colt45Revolver.tscn",
-			"SPAWN_WEIGHT":50,
-		}
-	},
-	}
-
-var mags = {
-	"Common":{
-		"Ak47_30_Round_Mag":{
-			"RESOURCE_PATH":"res://pickups/mags/ak47_30_round_mag.tscn",
-			"SPAWN_WEIGHT":100,
-		}
-	},
-}
-
-var backpacks = {
-	"Common":{
-		"Large_Green_Backpack":{
-			
-		}
-	}
-}
