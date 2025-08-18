@@ -7,9 +7,11 @@
 script = ExtResource("2_70hiq")
 currentAmmo = 0
 AMMO_CAPACITY = 30
+COMPATABLE_GUNS = Array[int]([1])
 TYPE = 0
+ITEM_REFRENCE = 1
 ICON = ExtResource("3_dmj0s")
-NAME = "Ak 30 Round"
+NAME = "Ak 30 Mag"
 RARITY = 0
 HAND_HOLDING_OFFSET = Vector2(0, 0)
 metadata/_custom_type_script = "uid://b6n7l4uf3le1x"

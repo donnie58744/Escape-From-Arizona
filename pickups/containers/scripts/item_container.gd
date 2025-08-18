@@ -26,12 +26,13 @@ func canAdd(containerSize:int)->bool:
 
 func add(item:Item, containerSize:int,slotNum:int)->bool:
 	if (canAdd(containerSize) and item != self):
-		items.append(item)
+		if (item not in items):
+			items.append(item)
 		itemSlotPosistions[item]=slotNum
-		print(itemSlotPosistions)
 		return true
 	return false
 
 func remove(item:Item):
-	items.remove_at(items.find(item))
-	itemSlotPosistions.erase(item)
+	if (item in items):
+		items.remove_at(items.find(item))
+		itemSlotPosistions.erase(item)

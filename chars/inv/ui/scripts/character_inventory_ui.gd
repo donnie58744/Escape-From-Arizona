@@ -1,6 +1,7 @@
 extends Control
 
 @onready var slot_grid_container: GridContainer = $GridContainer
+@export var right_hand:CharacterHand
 @export var character_inventory:CharacterInventory
 @export var pockets: HBoxContainer
 @export var backpack_item_container: ItemContainerUI
@@ -15,11 +16,15 @@ func _ready() -> void:
 	visible = false
 	update_slots()
 
+func resetDrag(draggingItem:DragableItem):
+	draggingItem.queue_free()
+	draggingItem = null
+	slotMoveInto = null
+
 func connectDragSig(slot:ItemSlot):
 	if (!slot.is_connected("gui_input",Callable(self, "slot_gui_input").bind(slot))):
 		slot.connect("gui_input", Callable(self, "slot_gui_input").bind(slot))
 
-# TODO MAKE BETTER WTF EVEN IS ALL THIS
 func slot_gui_input(event: InputEvent, slot:ItemSlot):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if (event.pressed):
@@ -29,20 +34,25 @@ func slot_gui_input(event: InputEvent, slot:ItemSlot):
 				drag_offset = get_global_mouse_position() - draggingItem.global_position
 		# draggingItem Let Go
 		else:
-			# If the player has hovered over an empty item slot then move the draggingItem into that slot and change inventory pos
-			if (slotMoveInto!=null):
-				# Move into slot if the ITEM_TYPES match up
-				if (character_inventory.canPutInSlotType(slotMoveInto,draggingItem)):
-					character_inventory.remove(draggingItem.item,slot,slot.CONTAINER_ITEM)
-					if(character_inventory.add(draggingItem.item,slotMoveInto,slotMoveInto.CONTAINER_ITEM)):
-						draggingItem.slot.dragableItem = null
-						slotMoveInto.update(draggingItem.item)
-						draggingItem.queue_free()
-						draggingItem = null
-						return
 			if (draggingItem != null):
+				# Move Item back to slot from where it was dragged from
 				slot.update(draggingItem.item)
-				draggingItem = null
+				# If the player has hovered over an empty item slot then move the draggingItem into that slot and change inventory pos
+				if (slotMoveInto!=null):
+					# Move into slot if the ITEM_TYPES match up
+					if (character_inventory.canPutInSlotType(slotMoveInto,draggingItem)):
+						if(character_inventory.canAdd(draggingItem.item,slotMoveInto,slotMoveInto.CONTAINER_ITEM)):
+							character_inventory.remove(draggingItem.item,slot,slot.CONTAINER_ITEM)
+							if (right_hand.held_item == draggingItem.item):
+								right_hand.deEquip()
+							draggingItem.slot.dragableItem = null
+							slotMoveInto.update(draggingItem.item)
+							character_inventory.canAdd(draggingItem.item,slotMoveInto,slotMoveInto.CONTAINER_ITEM,true)
+						else:
+							slot.update(draggingItem.item)
+					else:
+						print("WRONG SLOT TYPE")
+				resetDrag(draggingItem)
 
 	if (event is InputEventMouseMotion and draggingItem!=null):
 		draggingItem.global_position = get_global_mouse_position() - drag_offset
@@ -84,6 +94,8 @@ func update_slots():
 		var item = inventory[key]
 		slots[i].update(item)
 	backpack_item_container.setup(inventory.backpack)
+	if (character_inventory.backpack):
+		print(character_inventory.backpack.items)
 	
 	# TODO MAKE A FUNCTION THAT CONNECTS ALL SLOTS
 	for slot in slots:

@@ -27,6 +27,9 @@ func canPutInSlotType(slot:ItemSlot,draggableItem:DragableItem)->bool:
 				if (slot.SLOT_TYPE == Game.ITEM_TYPES.Gun):
 					if (slot.WEAPON_SLOT_TYPE == (draggableItem.item as Gun).GUN_TYPE):
 						return true
+			elif (draggableItem.item is Backpack):
+				if (slot.SLOT_TYPE == Game.ITEM_TYPES.Backpack):
+					return true
 		else:
 			return true
 	return false
@@ -36,6 +39,7 @@ func canEquip(item:Item, do:bool=false) -> bool:
 	match item.TYPE:
 		Game.ITEM_TYPES.Gun:
 			if ((item as Gun).GUN_TYPE == Game.GUN_TYPES.MainWeapon):
+				print("EQUIPPPP")
 				if(primaryWeapon==null):
 					if (do): primaryWeapon = item
 					return true
@@ -61,7 +65,7 @@ func canPickup(item:Item,itemContainer:ItemContainer)->bool:
 func equip(player:Player, pickupItem:PickupItem)->bool:
 	var item:Item = pickupItem.item
 	if (canEquip(item,true)):
-		player.pickupsInRange.remove_at(player.pickupsInRange.find(pickupItem))
+		player.character.pickupsInRange.remove_at(player.character.pickupsInRange.find(pickupItem))
 		pickupItem.queue_free()
 		return true
 	return false
@@ -70,44 +74,47 @@ func pickup(player:Player, pickupItem:PickupItem, itemContainer:ItemContainer)->
 	var item:Item = pickupItem.item
 	if (canPickup(item,itemContainer)):
 		if(itemContainer.add(item,itemContainer.CONTAINER_SIZE,itemContainer.getEmptySlotNum())):
-			player.pickupsInRange.remove_at(player.pickupsInRange.find(pickupItem))
+			player.character.pickupsInRange.remove_at(player.character.pickupsInRange.find(pickupItem))
 			pickupItem.queue_free()
 			return true
 	return false
 
 # TODO MAKE THIS BETTER DONT BE CHECKING STRINGS USE ENUM
-func drop(item:Item, player:Player, level:Node2D, held:bool):
+func drop(item:Item, level:Node2D, held:bool, rightHand:CharacterHand):
 	var pickupItemScene = preload("res://pickups/PickupItem.tscn")
 	var pickupItem = pickupItemScene.instantiate()
 	if (held):
-		if (player.currentEquipSlot == "Primary"):
+		if (rightHand.currentEquipSlot == "Primary"):
 			primaryWeapon = null
-		elif (player.currentEquipSlot == "Secondary"):
+		elif (rightHand.currentEquipSlot == "Secondary"):
 			secondaryWeapon = null
-		elif (player.currentEquipSlot == "Pistol"):
+		elif (rightHand.currentEquipSlot == "Pistol"):
 			pistol = null
-		player.held_item = null
-		player.right_hand.texture = null
+	rightHand.deEquip()
 	pickupItem.item = item
-	pickupItem.transform = player.right_hand.global_transform
+	pickupItem.transform = rightHand.global_transform
 	level.add_child(pickupItem)
 
-#TODO MAKE BETTER DONT BE USING STRINGS USE ENUM
-func add(item:Item, slot:ItemSlot,itemContainer:ItemContainer)->bool:
-	print(item,itemContainer)
+# TODO MAKE THIS FUNCTION BETTER? REMOVE DO VAR AND DONT BE CHECKING STRINGS USE ENUM
+func canAdd(item:Item, slot:ItemSlot,itemContainer:ItemContainer, do:bool=false)->bool:
 	if (slot.name == "PrimaryWeaponSlot"):
-		primaryWeapon = item
+		if (do): primaryWeapon = item
 		return true
 	elif (slot.name == "SecondaryWeaponSlot"):
-		secondaryWeapon = item
+		if (do): secondaryWeapon = item
 		return true
 	elif (slot.name == "PistolSlot"):
-		pistol = item
+		if (do): pistol = item
+		return true
+	elif (slot.name == "TactialRigSlot"):
+		if (do):tactialRig = item
+		return true
+	elif (slot.name == "BackpackSlot"):
+		if (do):backpack = item
 		return true
 	if (itemContainer != null and item != itemContainer):
-		print(item,itemContainer)
-		print("ASDASD")
-		if(itemContainer.add(item,itemContainer.CONTAINER_SIZE,slot.SLOT_NUM)):
+		if (do):itemContainer.add(item,itemContainer.CONTAINER_SIZE,slot.SLOT_NUM)
+		if(itemContainer.canAdd(itemContainer.CONTAINER_SIZE)):
 			return true
 	return false
 
@@ -119,6 +126,10 @@ func remove(item:Item ,slot:ItemSlot, itemContainer:ItemContainer):
 		secondaryWeapon = null
 	elif (slot.name == "PistolSlot"):
 		pistol = null
+	elif (slot.name == "TactialRigSlot"):
+		tactialRig = null
+	elif (slot.name == "BackpackSlot"):
+		backpack = null
 	if (itemContainer):
 		itemContainer.remove(item)
 	slot.clear()
