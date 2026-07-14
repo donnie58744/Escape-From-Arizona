@@ -65,7 +65,7 @@ func canPickup(item:Item,itemContainer:ItemContainer)->bool:
 func equip(player:Player, pickupItem:PickupItem)->bool:
 	var item:Item = pickupItem.item
 	if (canEquip(item,true)):
-		player.character.pickupsInRange.remove_at(player.character.pickupsInRange.find(pickupItem))
+		player.character_data.pickupsInRange.remove_at(player.character_data.pickupsInRange.find(pickupItem))
 		pickupItem.queue_free()
 		return true
 	return false
@@ -74,7 +74,7 @@ func pickup(player:Player, pickupItem:PickupItem, itemContainer:ItemContainer)->
 	var item:Item = pickupItem.item
 	if (canPickup(item,itemContainer)):
 		if(itemContainer.add(item,itemContainer.CONTAINER_SIZE,itemContainer.getEmptySlotNum())):
-			player.character.pickupsInRange.remove_at(player.character.pickupsInRange.find(pickupItem))
+			player.character_data.pickupsInRange.remove_at(player.character_data.pickupsInRange.find(pickupItem))
 			pickupItem.queue_free()
 			return true
 	return false

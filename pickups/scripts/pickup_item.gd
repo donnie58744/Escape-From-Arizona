@@ -34,14 +34,14 @@ func mouseArea(isShow:bool):
 	if (isShow and !player.inventory_ui.visible):
 		if (playerInRange):
 			player.interact_panel_ui.setup(player,item)
-			if (self not in player.character.pickupsInRange):
-				player.character.pickupsInRange.append(self)
+			if (self not in player.character_data.pickupsInRange):
+				player.character_data.pickupsInRange.append(self)
 		else:
-			if(self in player.character.pickupsInRange):
-				player.character.pickupsInRange.remove_at(player.character.pickupsInRange.find(self))
+			if(self in player.character_data.pickupsInRange):
+				player.character_data.pickupsInRange.remove_at(player.character_data.pickupsInRange.find(self))
 	else:
-		if(self in player.character.pickupsInRange):
-			player.character.pickupsInRange.remove_at(player.character.pickupsInRange.find(self))
+		if(self in player.character_data.pickupsInRange):
+			player.character_data.pickupsInRange.remove_at(player.character_data.pickupsInRange.find(self))
 
 func _process(delta):
 	if (!is_queued_for_deletion() and !Engine.is_editor_hint()):

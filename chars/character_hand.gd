@@ -21,36 +21,40 @@ func checkForMag(inventory:CharacterInventory)->Array:
 	return []
 	
 func reload(gun:Gun,currentScene,inventory:CharacterInventory):
-	var checkMag = checkForMag(inventory)
-	if (!checkMag.is_empty()):
-		var mag:Mag = checkMag[0]
-		var magContainer:ItemContainer = checkMag[1]
-		if (gun.ITEM_REFRENCE in mag.COMPATABLE_GUNS and mag.ITEM_REFRENCE in gun.COMPATABLE_MAGS):
-			print("Load")
-			if (gun.loadedMag):
-				var foundContainer:ItemContainer = inventory.findContainer()
-				if (!foundContainer.add(gun.loadedMag,foundContainer.CONTAINER_SIZE,foundContainer.getEmptySlotNum())):
-					inventory.drop(gun.loadedMag,currentScene,false,self)
+	if (held_item is Gun):
+		var checkMag = checkForMag(inventory)
+		if (!checkMag.is_empty()):
+			var mag:Mag = checkMag[0]
+			var magContainer:ItemContainer = checkMag[1]
+			if (gun.ITEM_REFRENCE in mag.COMPATABLE_GUNS and mag.ITEM_REFRENCE in gun.COMPATABLE_MAGS):
+				print("Load")
+				if (gun.loadedMag):
+					var foundContainer:ItemContainer = inventory.findContainer()
+					if (!foundContainer.add(gun.loadedMag,foundContainer.CONTAINER_SIZE,foundContainer.getEmptySlotNum())):
+						inventory.drop(gun.loadedMag,currentScene,false,self)
 
-			gun.loadedMag = mag
-			magContainer.remove(mag)
+				gun.loadedMag = mag
+				magContainer.remove(mag)
 
 func changeFireMode(gun:Gun):
-	if (gun.CAN_AUTO_FIRE):
-		gun.isAutoFireMode = !gun.isAutoFireMode
+	if (held_item is Gun):
+		if (gun.CAN_AUTO_FIRE):
+			gun.isAutoFireMode = !gun.isAutoFireMode
 
-func shoot(gun:Gun, player:Player):
-	# Some Dumb math code to properly spawn bullet at muzzle
-	var side_x = sign(cos(player.rotation))
-	var side_y = sign(sin(player.rotation))
-	var customOffset = Vector2(
-		offset.x * abs(side_x),
-		offset.y * side_y
-	)
-	#--------------------------------------------------------
-	gun.shoot(player, customOffset)
+func fire(gun:Gun, player:Player):
+	if (held_item is Gun):
+		# Some Dumb math code to properly spawn bullet at muzzle
+		var side_x = sign(cos(player.rotation))
+		var side_y = sign(sin(player.rotation))
+		var customOffset = Vector2(
+			offset.x * abs(side_x),
+			offset.y * side_y
+		)
+		#--------------------------------------------------------
+		
+		gun.fire(self, customOffset)
 
-func equip(item:Item,equipSlotName:String,character:Character):
+func equip(item:Item,equipSlotName:String,character_data:CharacterData):
 	currentEquipSlot = equipSlotName
 	held_item = item
 	update(item)

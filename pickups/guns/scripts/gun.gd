@@ -25,9 +25,9 @@ func createBullet() -> Area2D:
 	bullet_instance.gunName = NAME
 	return bullet_instance
 
-func shoot(player:Player, offset:Vector2):
+func fire(hand:CharacterHand, offset:Vector2):
 	if (canFire()):
 		var bullet = createBullet()
-		var bulletPOS:Vector2 = player.global_position + offset.rotated(player.rotation) + ATTACHMENT_POINTS["Muzzle"].rotated(player.rotation)
+		var bulletPOS:Vector2 = hand.global_position + offset.rotated(hand.global_rotation) + ATTACHMENT_POINTS["Muzzle"].rotated(hand.global_rotation)
 		loadedMag.removeAmmo(1)
-		BulletManager.spawn_bullet(bullet, bulletPOS, player.rotation)
+		BulletManager.spawn_bullet(bullet, bulletPOS, hand.global_rotation)
