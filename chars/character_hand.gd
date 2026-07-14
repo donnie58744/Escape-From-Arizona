@@ -39,22 +39,16 @@ func changeFireMode(gun:Gun):
 	if (gun.CAN_AUTO_FIRE):
 		gun.isAutoFireMode = !gun.isAutoFireMode
 
-func shoot(gun:Gun, characterBody:CharacterBody2D):
-	if (gun.loadedMag and gun.loadedMag.currentAmmo > 0):
-		# Some Dumb math code to properly spawn bullet at muzzle
-		var side_x = sign(cos(characterBody.rotation))
-		var side_y = sign(sin(characterBody.rotation))
-		var customOffset = Vector2(
-			offset.x * abs(side_x),
-			offset.y * side_y
-		)
-		#--------------------------------------------------------
-		
-		var bullet = gun.createBullet()
-		bullet.position = global_position + customOffset.rotated(characterBody.rotation) + gun.ATTACHMENT_POINTS["Muzzle"].rotated(characterBody.rotation)
-		bullet.rotation = characterBody.rotation
-		gun.loadedMag.removeAmmo(1)
-		get_tree().get_current_scene().add_child(bullet)
+func shoot(gun:Gun, player:Player):
+	# Some Dumb math code to properly spawn bullet at muzzle
+	var side_x = sign(cos(player.rotation))
+	var side_y = sign(sin(player.rotation))
+	var customOffset = Vector2(
+		offset.x * abs(side_x),
+		offset.y * side_y
+	)
+	#--------------------------------------------------------
+	gun.shoot(player, customOffset)
 
 func equip(item:Item,equipSlotName:String,character:Character):
 	currentEquipSlot = equipSlotName

@@ -22530,3 +22530,4 @@ item = SubResource("Resource_045es")
 [node name="PickupItem11" parent="." instance=ExtResource("3_8hd6v")]
 position = Vector2(100, -97)
 item = ExtResource("9_omn1t")
+randomizeVals = true
