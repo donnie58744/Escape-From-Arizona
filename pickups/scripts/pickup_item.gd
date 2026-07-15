@@ -16,6 +16,7 @@ func _ready() -> void:
 			item=item.duplicate(true)
 		setRandVals(item)
 	item_sprite.texture = item.ICON
+	fitCollisionToSprite()
 	
 func setRandVals(item:Item):
 	if (randomizeVals):
@@ -23,37 +24,39 @@ func setRandVals(item:Item):
 			item.setRandAmmo()
 
 func _on_body_entered(body: Node2D) -> void:
-	if (body is Player):
-		playerInRange = true
+	if (body is Character):
+		itemInRange(body)
 
 func _on_body_exited(body: Node2D) -> void:
-	if (body is Player):
-		playerInRange = false
+	if body is Character:
+		itemNoLongerInRange(body)
 
-func mouseArea(isShow:bool):
-	if (isShow and !player.inventory_ui.visible):
-		if (playerInRange):
-			player.interact_panel_ui.setup(player,item)
-			if (self not in player.character_data.pickupsInRange):
-				player.character_data.pickupsInRange.append(self)
-		else:
-			if(self in player.character_data.pickupsInRange):
-				player.character_data.pickupsInRange.remove_at(player.character_data.pickupsInRange.find(self))
-	else:
-		if(self in player.character_data.pickupsInRange):
-			player.character_data.pickupsInRange.remove_at(player.character_data.pickupsInRange.find(self))
+func itemInRange(body:Character):
+	var idx = body.character_data.pickupsInRange.find(self)
+	body.character_data.pickupsInRange.append(self)
 
-func _process(delta):
+func itemNoLongerInRange(body:Character):
+	var idx = body.character_data.pickupsInRange.find(self)
+	body.character_data.pickupsInRange.remove_at(idx)
+	body.characterPickupItem = null
+
+func isMouseOver():
 	if (!is_queued_for_deletion() and !Engine.is_editor_hint()):
 		var mouse_pos_local = to_local(get_global_mouse_position())
 		var shape = collision_shape_2d.shape
 		if shape is RectangleShape2D:
 			if abs(mouse_pos_local.x) <= shape.extents.x and abs(mouse_pos_local.y) <= shape.extents.y:
-				mouseArea(true)
+				return true
 			else:
-				mouseArea(false)
+				return false
 		elif shape is CircleShape2D:
 			if mouse_pos_local.length() <= shape.radius:
-				mouseArea(true)
+				return true
 			else:
-				mouseArea(false)
+				return false
+				
+func fitCollisionToSprite() -> void:
+	if item and item.ICON:
+		var shape := RectangleShape2D.new()
+		shape.size = item.ICON.get_size()
+		collision_shape_2d.shape = shape

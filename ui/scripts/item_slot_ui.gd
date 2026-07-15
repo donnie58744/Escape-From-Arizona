@@ -22,4 +22,3 @@ func update(item: Item):
 		dragableItem.item = item
 		dragableItem.slot = self
 		add_child(dragableItem)
-		print("CREATE DRAG ITEM",dragableItem.item.NAME)

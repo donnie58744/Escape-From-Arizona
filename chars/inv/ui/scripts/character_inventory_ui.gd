@@ -65,7 +65,6 @@ func slot_gui_input(event: InputEvent, slot:ItemSlot):
 				# Check if Hovered slot is empty
 				if (hovered.dragableItem==null):
 					slotMoveInto=hovered
-					print("HOVERED:",hovered.SLOT_NUM)
 			# If not an item slot then the player must be hovering over something it cant be put into
 			else:
 				slotMoveInto = null

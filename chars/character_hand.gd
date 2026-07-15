@@ -2,7 +2,6 @@ extends Sprite2D
 class_name CharacterHand
 
 var held_item:Item = null
-var currentEquipSlot = null
 
 #TODO RETURN USES MAGJIC NUMBERS!!! NO GOOD
 func checkForMag(inventory:CharacterInventory)->Array:
@@ -27,11 +26,10 @@ func reload(gun:Gun,currentScene,inventory:CharacterInventory):
 			var mag:Mag = checkMag[0]
 			var magContainer:ItemContainer = checkMag[1]
 			if (gun.ITEM_REFRENCE in mag.COMPATABLE_GUNS and mag.ITEM_REFRENCE in gun.COMPATABLE_MAGS):
-				print("Load")
 				if (gun.loadedMag):
 					var foundContainer:ItemContainer = inventory.findContainer()
 					if (!foundContainer.add(gun.loadedMag,foundContainer.CONTAINER_SIZE,foundContainer.getEmptySlotNum())):
-						inventory.drop(gun.loadedMag,currentScene,false,self)
+						inventory.drop(gun.loadedMag,currentScene,self)
 
 				gun.loadedMag = mag
 				magContainer.remove(mag)
@@ -54,12 +52,14 @@ func fire(gun:Gun, player:Player):
 		
 		gun.fire(self, customOffset)
 
-func equip(item:Item,equipSlotName:String,character_data:CharacterData):
-	currentEquipSlot = equipSlotName
-	held_item = item
-	update(item)
-	if (item is Gun):
-		offset = -item.ATTACHMENT_POINTS["PistolGrip"]
+func equip(item:Item, gunInfoUI:Panel):
+	if (item != null): 
+		held_item = item
+		update(item)
+		if (item is Gun):
+			offset = -item.ATTACHMENT_POINTS["PistolGrip"]
+		gunInfoUI.update(item)
+	return false
 
 func deEquip():
 	held_item = null

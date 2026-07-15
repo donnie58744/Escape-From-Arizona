@@ -6,7 +6,6 @@ class_name Mag
 
 func setRandAmmo():
 	currentAmmo = randi_range(currentAmmo,AMMO_CAPACITY)
-	print("RAND",currentAmmo)
 
 func removeAmmo(amount:int):
 	currentAmmo -= amount
