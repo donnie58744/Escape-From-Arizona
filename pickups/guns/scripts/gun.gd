@@ -4,6 +4,7 @@ class_name Gun
 
 enum FIRE_MODES { SEMI, AUTO, BURST }
 
+@export var BURST_SIZE:int = 3
 @export var AMMO_TYPE:String
 @export var FIRERATE:float
 
@@ -35,7 +36,6 @@ func cycleFireMode() -> void:
 	fire_mode = available_fire_modes[idx]
 	
 func burstFire(hand: CharacterHand, offset: Vector2) -> void:
-	var BURST_SIZE = 3
 	if is_bursting:
 		return
 	if not canFire() or (Time.get_ticks_msec()/1000.0 - last_fire_time) < FIRERATE:
