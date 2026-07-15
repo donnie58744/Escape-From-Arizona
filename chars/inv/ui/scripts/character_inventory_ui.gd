@@ -37,19 +37,18 @@ func slot_gui_input(event: InputEvent, slot:ItemSlot):
 			if (draggingItem != null):
 				# Move Item back to slot from where it was dragged from
 				slot.update(draggingItem.item)
-				# If the player has hovered over an empty item slot then move the draggingItem into that slot and change inventory pos
-				if (slotMoveInto!=null):
-					# Move into slot if the ITEM_TYPES match up
-					if (character_inventory.canPutInSlotType(slotMoveInto,draggingItem)):
-						if(character_inventory.canAdd(draggingItem.item,slotMoveInto,slotMoveInto.CONTAINER_ITEM)):
-							character_inventory.remove(draggingItem.item,slot,slot.CONTAINER_ITEM)
-							if (right_hand.held_item == draggingItem.item):
-								right_hand.deEquip()
-							draggingItem.slot.dragableItem = null
-							slotMoveInto.update(draggingItem.item)
-							character_inventory.canAdd(draggingItem.item,slotMoveInto,slotMoveInto.CONTAINER_ITEM,true)
-						else:
-							slot.update(draggingItem.item)
+				
+				# Move into slot if the ITEM_TYPES match up
+				if (character_inventory.canPutInSlotType(slotMoveInto,draggingItem)):
+					if(character_inventory.canAddToSlot(draggingItem.item,slotMoveInto,slotMoveInto.CONTAINER_ITEM)):
+						character_inventory.remove(draggingItem.item,slot,slot.CONTAINER_ITEM)
+						if (right_hand.held_item == draggingItem.item):
+							right_hand.deEquip()
+						draggingItem.slot.dragableItem = null
+						character_inventory.canAddToSlot(draggingItem.item,slotMoveInto,slotMoveInto.CONTAINER_ITEM)
+						character_inventory.addToSlot(draggingItem.item, slotMoveInto, slotMoveInto.CONTAINER_ITEM)
+						
+						slotMoveInto.update(draggingItem.item)
 					else:
 						print("WRONG SLOT TYPE")
 				resetDrag(draggingItem)

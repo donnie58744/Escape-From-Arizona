@@ -52,13 +52,14 @@ func fire(gun:Gun, player:Player):
 		
 		gun.fire(self, customOffset)
 
-func equip(item:Item, gunInfoUI:Panel):
+func equipFromItemSlot(item:Item, gunInfoUI:Panel):
 	if (item != null): 
 		held_item = item
 		update(item)
 		if (item is Gun):
 			offset = -item.ATTACHMENT_POINTS["PistolGrip"]
 		gunInfoUI.update(item)
+		return true
 	return false
 
 func deEquip():

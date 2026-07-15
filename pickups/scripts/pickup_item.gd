@@ -38,7 +38,6 @@ func itemInRange(body:Character):
 func itemNoLongerInRange(body:Character):
 	var idx = body.character_data.pickupsInRange.find(self)
 	body.character_data.pickupsInRange.remove_at(idx)
-	body.characterPickupItem = null
 
 func isMouseOver():
 	if (!is_queued_for_deletion() and !Engine.is_editor_hint()):

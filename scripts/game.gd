@@ -1,6 +1,7 @@
 extends Node
 
 # !!!!KEEP ITEM WEIGHTS EQUAL TO 100!!!!
+enum EQUIP_SLOTS {None, Primary, Secondary, Pistol, TacticalRig, Backpack}
 enum RARITIES {Common, Uncommon, Rare, Legendary, Nothing}
 enum ITEM_TYPES {Mag,Gun,Backpack,Item}
 enum GUN_TYPES {None,MainWeapon,Pistol}

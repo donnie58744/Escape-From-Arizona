@@ -62,13 +62,13 @@ func _process(delta: float) -> void:
 		
 		if (Input.is_action_just_pressed("interact")): character_data.inventory.pickup(self,character_data.inventory.findContainer())
 			
-		if (Input.is_action_just_pressed("equip")): character_data.inventory.equip(self)
+		if (Input.is_action_just_pressed("equip")): character_data.inventory.equipToItemSlot(self)
 
-		if (Input.is_action_just_pressed("primary_weapon")): right_hand.equip(character_data.inventory.primaryWeapon, gun_info_ui)
+		if (Input.is_action_just_pressed("primary_weapon")): right_hand.equipFromItemSlot(character_data.inventory.primaryWeapon, gun_info_ui)
 		
-		if (Input.is_action_just_pressed("secondary_weapon")): right_hand.equip(character_data.inventory.secondaryWeapon, gun_info_ui)
+		if (Input.is_action_just_pressed("secondary_weapon")): right_hand.equipFromItemSlot(character_data.inventory.secondaryWeapon, gun_info_ui)
 		
-		if (Input.is_action_just_pressed("pistol")): right_hand.equip(character_data.inventory.pistol,gun_info_ui)
+		if (Input.is_action_just_pressed("pistol")): right_hand.equipFromItemSlot(character_data.inventory.pistol,gun_info_ui)
 		
 		if (Input.is_action_pressed("fire")): right_hand.fire(right_hand.held_item,self)
 
