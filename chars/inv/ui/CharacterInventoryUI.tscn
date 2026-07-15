@@ -61,6 +61,7 @@ label_settings = ExtResource("2_kgdpn")
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 SLOT_TYPE = 2
+EQUIP_SLOT_TYPE = 4
 
 [node name="Pockets" type="HBoxContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(700, 207)
@@ -92,6 +93,7 @@ label_settings = ExtResource("2_kgdpn")
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 SLOT_TYPE = 2
+EQUIP_SLOT_TYPE = 5
 
 [node name="ItemContainer" parent="VBoxContainer/HBoxContainer" instance=ExtResource("4_6ebbx")]
 custom_minimum_size = Vector2(1000, 1000)
@@ -264,6 +266,7 @@ custom_minimum_size = Vector2(900, 300)
 layout_mode = 2
 SLOT_TYPE = 1
 WEAPON_SLOT_TYPE = 1
+EQUIP_SLOT_TYPE = 1
 
 [node name="Pistol" type="VBoxContainer" parent="GridContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -285,6 +288,7 @@ custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 SLOT_TYPE = 1
 WEAPON_SLOT_TYPE = 2
+EQUIP_SLOT_TYPE = 3
 
 [node name="HSeparator" type="HSeparator" parent="GridContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 5)
@@ -311,3 +315,4 @@ custom_minimum_size = Vector2(900, 300)
 layout_mode = 2
 SLOT_TYPE = 1
 WEAPON_SLOT_TYPE = 1
+EQUIP_SLOT_TYPE = 2

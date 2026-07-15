@@ -10,8 +10,8 @@ FIRERATE = 0.1
 CAN_AUTO_FIRE = true
 isAutoFireMode = false
 ATTACHMENT_POINTS = {
-"Muzzle": Vector2(37, -6),
-"PistolGrip": Vector2(-13, 0)
+"Muzzle": Vector2(36, -6),
+"PistolGrip": Vector2(-14, 0)
 }
 GUN_TYPE = 1
 SUB_GUN_TYPE = 1

@@ -2,7 +2,6 @@ extends Sprite2D
 class_name CharacterHand
 
 var held_item:Item = null
-var currentEquipSlot = null
 
 #TODO RETURN USES MAGJIC NUMBERS!!! NO GOOD
 func checkForMag(inventory:CharacterInventory)->Array:
@@ -21,47 +20,47 @@ func checkForMag(inventory:CharacterInventory)->Array:
 	return []
 	
 func reload(gun:Gun,currentScene,inventory:CharacterInventory):
-	var checkMag = checkForMag(inventory)
-	if (!checkMag.is_empty()):
-		var mag:Mag = checkMag[0]
-		var magContainer:ItemContainer = checkMag[1]
-		if (gun.ITEM_REFRENCE in mag.COMPATABLE_GUNS and mag.ITEM_REFRENCE in gun.COMPATABLE_MAGS):
-			print("Load")
-			if (gun.loadedMag):
-				var foundContainer:ItemContainer = inventory.findContainer()
-				if (!foundContainer.add(gun.loadedMag,foundContainer.CONTAINER_SIZE,foundContainer.getEmptySlotNum())):
-					inventory.drop(gun.loadedMag,currentScene,false,self)
+	if (held_item is Gun):
+		var checkMag = checkForMag(inventory)
+		if (!checkMag.is_empty()):
+			var mag:Mag = checkMag[0]
+			var magContainer:ItemContainer = checkMag[1]
+			if (gun.ITEM_REFRENCE in mag.COMPATABLE_GUNS and mag.ITEM_REFRENCE in gun.COMPATABLE_MAGS):
+				if (gun.loadedMag):
+					var foundContainer:ItemContainer = inventory.findContainer()
+					if (!foundContainer.add(gun.loadedMag,foundContainer.CONTAINER_SIZE,foundContainer.getEmptySlotNum())):
+						inventory.drop(gun.loadedMag,currentScene,self)
 
-			gun.loadedMag = mag
-			magContainer.remove(mag)
+				gun.loadedMag = mag
+				magContainer.remove(mag)
 
 func changeFireMode(gun:Gun):
-	if (gun.CAN_AUTO_FIRE):
-		gun.isAutoFireMode = !gun.isAutoFireMode
+	if (held_item is Gun):
+		if (gun.CAN_AUTO_FIRE):
+			gun.isAutoFireMode = !gun.isAutoFireMode
 
-func shoot(gun:Gun, characterBody:CharacterBody2D):
-	if (gun.loadedMag and gun.loadedMag.currentAmmo > 0):
+func fire(gun:Gun, player:Player):
+	if (held_item is Gun):
 		# Some Dumb math code to properly spawn bullet at muzzle
-		var side_x = sign(cos(characterBody.rotation))
-		var side_y = sign(sin(characterBody.rotation))
+		var side_x = sign(cos(player.rotation))
+		var side_y = sign(sin(player.rotation))
 		var customOffset = Vector2(
 			offset.x * abs(side_x),
 			offset.y * side_y
 		)
 		#--------------------------------------------------------
 		
-		var bullet = gun.createBullet()
-		bullet.position = global_position + customOffset.rotated(characterBody.rotation) + gun.ATTACHMENT_POINTS["Muzzle"].rotated(characterBody.rotation)
-		bullet.rotation = characterBody.rotation
-		gun.loadedMag.removeAmmo(1)
-		get_tree().get_current_scene().add_child(bullet)
+		gun.fire(self, customOffset)
 
-func equip(item:Item,equipSlotName:String,character:Character):
-	currentEquipSlot = equipSlotName
-	held_item = item
-	update(item)
-	if (item is Gun):
-		offset = -item.ATTACHMENT_POINTS["PistolGrip"]
+func equipFromItemSlot(item:Item, gunInfoUI:Panel):
+	if (item != null): 
+		held_item = item
+		update(item)
+		if (item is Gun):
+			offset = -item.ATTACHMENT_POINTS["PistolGrip"]
+		gunInfoUI.update(item)
+		return true
+	return false
 
 func deEquip():
 	held_item = null

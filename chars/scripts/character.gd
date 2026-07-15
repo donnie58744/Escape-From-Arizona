@@ -1,7 +1,7 @@
-extends CharacterBaseStats
+extends CharacterBody2D
 class_name Character
 
-@export var inventory: CharacterInventory
-var quickSlots:Array = [0,1,2,3,4,5,6,7,8,9]
-var currentSpeed = WALKING_SPEED
-var pickupsInRange:Array[PickupItem]
+@export var character_data: CharacterData
+@export var right_hand: CharacterHand
+@export var pickup_timer: Timer
+var characterPickupItem:PickupItem

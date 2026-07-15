@@ -19,6 +19,7 @@ config/icon="uid://vvkp45urjmv4"
 [autoload]
 
 Game="*res://scripts/game.gd"
+BulletManager="*res://world/scripts/BulletManager.gd"
 
 [global_group]
 

@@ -28,7 +28,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_quick_slots_ui", "inventory_ui", "interact_panel_ui", "gun_info_ui", "pickup_timer", "right_hand") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_quick_slots_ui", "inventory_ui", "interact_panel_ui", "gun_info_ui", "right_hand") groups=["player"]]
 top_level = true
 z_index = 6
 collision_layer = 5
@@ -37,8 +37,7 @@ player_quick_slots_ui = NodePath("UI/PlayerQuickSlots")
 inventory_ui = NodePath("UI/PlayerInventory")
 interact_panel_ui = NodePath("UI/InteractPanel")
 gun_info_ui = NodePath("UI/GunInfo")
-character = ExtResource("2_vx763")
-pickup_timer = NodePath("PickupTimer")
+character_data = ExtResource("2_vx763")
 right_hand = NodePath("RightHand")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -59,14 +58,18 @@ animation = &"walking"
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="PlayerQuickSlots" parent="UI" instance=ExtResource("2_xs2b6")]
+visible = false
 
 [node name="PlayerInventory" parent="UI" node_paths=PackedStringArray("right_hand") instance=ExtResource("6_qrljh")]
+visible = false
 right_hand = NodePath("../../RightHand")
 character_inventory = ExtResource("2_b63wt")
 
 [node name="GunInfo" parent="UI" instance=ExtResource("6_b63wt")]
+visible = false
 
 [node name="InteractPanel" parent="UI" instance=ExtResource("7_b63wt")]
+visible = false
 anchors_preset = 8
 
 [node name="PickupTimer" type="Timer" parent="."]
