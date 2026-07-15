@@ -79,7 +79,8 @@ func _process(delta: float) -> void:
 					if (Input.is_action_just_pressed("fire")): right_hand.fire(self)
 				Gun.FIRE_MODES.AUTO:
 					if (Input.is_action_pressed("fire")): right_hand.fire(self)
-				# TODO Add Burst Fire
+				Gun.FIRE_MODES.BURST:
+					if (Input.is_action_just_pressed("fire")): right_hand.fire(self, true)
 			
 			if (Input.is_action_just_pressed("fire_mode")): held_gun.cycleFireMode()
 			gun_info_ui.update(held_gun)

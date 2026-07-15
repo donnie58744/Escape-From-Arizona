@@ -34,7 +34,7 @@ func reload(gun:Gun,currentScene,inventory:CharacterInventory):
 				gun.loadedMag = mag
 				magContainer.remove(mag)
 
-func fire(player:Player):
+func fire(player:Player, burst:bool=false):
 	if not (held_item is Gun):
 		return
 		
@@ -47,8 +47,8 @@ func fire(player:Player):
 		offset.y * side_y
 	)
 	#--------------------------------------------------------
-	
-	gun.fire(self, customOffset)
+	if (burst): gun.burstFire(self, customOffset)
+	else: gun.fire(self, customOffset)
 
 func equipFromItemSlot(item:Item, gunInfoUI:Panel):
 	if (item != null): 
