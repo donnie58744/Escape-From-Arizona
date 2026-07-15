@@ -5,10 +5,11 @@
 
 [resource]
 script = ExtResource("2_dg3xg")
+BURST_SIZE = 3
 AMMO_TYPE = "7.62"
 FIRERATE = 0.1
-CAN_AUTO_FIRE = true
-isAutoFireMode = false
+available_fire_modes = Array[int]([0, 1])
+fire_mode = 0
 ATTACHMENT_POINTS = {
 "Muzzle": Vector2(36, -6),
 "PistolGrip": Vector2(-14, 0)

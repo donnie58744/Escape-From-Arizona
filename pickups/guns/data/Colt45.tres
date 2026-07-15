@@ -7,8 +7,8 @@
 script = ExtResource("3_44jkn")
 AMMO_TYPE = ".45 ACP"
 FIRERATE = 0.2
-CAN_AUTO_FIRE = false
-isAutoFireMode = false
+available_fire_modes = Array[int]([0])
+fire_mode = 0
 ATTACHMENT_POINTS = {
 "Muzzle": Vector2(22, -6),
 "PistolGrip": Vector2(-14, 0)

@@ -34,23 +34,21 @@ func reload(gun:Gun,currentScene,inventory:CharacterInventory):
 				gun.loadedMag = mag
 				magContainer.remove(mag)
 
-func changeFireMode(gun:Gun):
-	if (held_item is Gun):
-		if (gun.CAN_AUTO_FIRE):
-			gun.isAutoFireMode = !gun.isAutoFireMode
-
-func fire(gun:Gun, player:Player):
-	if (held_item is Gun):
-		# Some Dumb math code to properly spawn bullet at muzzle
-		var side_x = sign(cos(player.rotation))
-		var side_y = sign(sin(player.rotation))
-		var customOffset = Vector2(
-			offset.x * abs(side_x),
-			offset.y * side_y
-		)
-		#--------------------------------------------------------
+func fire(player:Player, burst:bool=false):
+	if not (held_item is Gun):
+		return
 		
-		gun.fire(self, customOffset)
+	var gun: Gun = held_item
+	# Some Dumb math code to properly spawn bullet at muzzle
+	var side_x = sign(cos(player.rotation))
+	var side_y = sign(sin(player.rotation))
+	var customOffset = Vector2(
+		offset.x * abs(side_x),
+		offset.y * side_y
+	)
+	#--------------------------------------------------------
+	if (burst): gun.burstFire(self, customOffset)
+	else: gun.fire(self, customOffset)
 
 func equipFromItemSlot(item:Item, gunInfoUI:Panel):
 	if (item != null): 

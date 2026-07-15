@@ -49,8 +49,8 @@ func player_movement():
 	move_and_slide()
 
 func _process(delta: float) -> void:
-	print(characterPickupItem)
-	print(character_data.pickupsInRange)
+	#print(characterPickupItem)
+	#print(character_data.pickupsInRange)
 	
 	update_pickup_hover_ui()
 	
@@ -69,15 +69,21 @@ func _process(delta: float) -> void:
 		if (Input.is_action_just_pressed("secondary_weapon")): right_hand.equipFromItemSlot(character_data.inventory.secondaryWeapon, gun_info_ui)
 		
 		if (Input.is_action_just_pressed("pistol")): right_hand.equipFromItemSlot(character_data.inventory.pistol,gun_info_ui)
-		
-		if (Input.is_action_pressed("fire")): right_hand.fire(right_hand.held_item,self)
-
-		if (Input.is_action_just_pressed("fire mode")): right_hand.changeFireMode(right_hand.held_item)
 
 		if (Input.is_action_just_pressed("reload")): right_hand.reload(right_hand.held_item,currentScene,character_data.inventory)
 
 		if (right_hand.held_item is Gun):
-			gun_info_ui.update(right_hand.held_item)
+			var held_gun:Gun = right_hand.held_item
+			match held_gun.fire_mode:
+				Gun.FIRE_MODES.SEMI:
+					if (Input.is_action_just_pressed("fire")): right_hand.fire(self)
+				Gun.FIRE_MODES.AUTO:
+					if (Input.is_action_pressed("fire")): right_hand.fire(self)
+				Gun.FIRE_MODES.BURST:
+					if (Input.is_action_just_pressed("fire")): right_hand.fire(self, true)
+			
+			if (Input.is_action_just_pressed("fire_mode")): held_gun.cycleFireMode()
+			gun_info_ui.update(held_gun)
 			gun_info_ui.showHide(true)
 		else:
 			gun_info_ui.showHide(false)

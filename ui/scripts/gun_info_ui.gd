@@ -5,7 +5,7 @@ extends Panel
 
 func update(gun:Gun):
 	ammo_type_label.text = gun.AMMO_TYPE
-	firerate_mode_label.text = str(gun.isAutoFireMode)
+	firerate_mode_label.text = str(Gun.FIRE_MODES.find_key(gun.fire_mode))
 	if (gun.loadedMag):
 		current_ammo_label.text = str(gun.loadedMag.currentAmmo)+"/"+str(gun.loadedMag.AMMO_CAPACITY)
 	else:
