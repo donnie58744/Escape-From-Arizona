@@ -45,12 +45,10 @@ func slot_gui_input(event: InputEvent, slot:ItemSlot):
 						if (right_hand.held_item == draggingItem.item):
 							right_hand.deEquip()
 						draggingItem.slot.dragableItem = null
-						character_inventory.canAddToSlot(draggingItem.item,slotMoveInto,slotMoveInto.CONTAINER_ITEM)
+						
 						character_inventory.addToSlot(draggingItem.item, slotMoveInto, slotMoveInto.CONTAINER_ITEM)
 						
 						slotMoveInto.update(draggingItem.item)
-					else:
-						print("WRONG SLOT TYPE")
 				resetDrag(draggingItem)
 
 	if (event is InputEventMouseMotion and draggingItem!=null):
