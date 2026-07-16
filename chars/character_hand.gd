@@ -3,7 +3,7 @@ class_name CharacterHand
 
 var held_item:Item = null
 
-#TODO RETURN USES MAGJIC NUMBERS!!! NO GOOD!
+#TODO RETURN USES MAGJIC NUMBERS!!! NO GOOD
 func checkForMag(inventory:CharacterInventory)->Array:
 	var hasTactialRig = inventory.tactialRig
 	var hasBackpack = inventory.backpack
