@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("3_44jkn")
+BURST_SIZE = 3
 AMMO_TYPE = ".45 ACP"
 FIRERATE = 0.2
 available_fire_modes = Array[int]([0])
