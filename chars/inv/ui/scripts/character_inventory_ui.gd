@@ -12,11 +12,28 @@ var draggingItem:DragableItem
 var drag_offset
 var slotMoveInto:ItemSlot
 
+class DragState:
+	var dragging_item: DragableItem = null
+	var item: Item = null
+	var offset: Vector2 = Vector2.ZERO
+	var target_slot: ItemSlot = null
+
+	func is_active() -> bool:
+		return item != null
+
+	func clear() -> void:
+		if item != null:
+			dragging_item.queue_free()
+		dragging_item = null
+		item = null
+		target_slot = null
+var drag := DragState.new()
+
 func _ready() -> void:
 	visible = false
 	update_slots()
 
-func resetDrag(draggingItem:DragableItem):
+func resetDrag():
 	draggingItem.queue_free()
 	draggingItem = null
 	slotMoveInto = null
@@ -25,34 +42,29 @@ func connectDragSig(slot:ItemSlot):
 	if (!slot.is_connected("gui_input",Callable(self, "slot_gui_input").bind(slot))):
 		slot.connect("gui_input", Callable(self, "slot_gui_input").bind(slot))
 
-func slot_gui_input(event: InputEvent, slot:ItemSlot):
+func slot_gui_input(event: InputEvent, itemSlot:ItemSlot):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if (event.pressed):
-			draggingItem = slot.dragableItem
-			# Check if there is a dragableItem in slot
-			if(draggingItem != null):
-				drag_offset = get_global_mouse_position() - draggingItem.global_position
-		# draggingItem Let Go
-		else:
-			if (draggingItem != null):
-				# Move Item back to slot from where it was dragged from
-				slot.update(draggingItem.item)
-				
-				# Move into slot if the ITEM_TYPES match up
-				if (character_inventory.canPutInSlotType(slotMoveInto,draggingItem)):
-					if(character_inventory.canAddToSlot(draggingItem.item,slotMoveInto,slotMoveInto.CONTAINER_ITEM)):
-						character_inventory.remove(draggingItem.item,slot,slot.CONTAINER_ITEM)
-						if (right_hand.held_item == draggingItem.item):
+			drag.dragging_item = itemSlot.dragableItem
+			drag.item = drag.dragging_item.item
+			
+			if(drag.is_active()):
+				drag.offset = get_global_mouse_position() - drag.dragging_item.global_position
+		else: # draggingItem Let Go
+			if (drag.is_active()):
+				# Move into slot
+				if(character_inventory.moveItem(drag.item, slotMoveInto, itemSlot)):
+						if (right_hand.held_item == drag.item):
 							right_hand.deEquip()
-						draggingItem.slot.dragableItem = null
 						
-						character_inventory.addToSlot(draggingItem.item, slotMoveInto, slotMoveInto.CONTAINER_ITEM)
-						
-						slotMoveInto.update(draggingItem.item)
-				resetDrag(draggingItem)
+						slotMoveInto.update(drag.item)
+				else:
+					# Move Item back to slot from where it was dragged from
+					itemSlot.update(drag.item)
+				drag.clear()
 
-	if (event is InputEventMouseMotion and draggingItem!=null):
-		draggingItem.global_position = get_global_mouse_position() - drag_offset
+	if (event is InputEventMouseMotion and drag.dragging_item!=null):
+		drag.dragging_item.global_position = get_global_mouse_position() - drag.offset
 		
 		var hovered := get_viewport().gui_get_hovered_control()
 		
