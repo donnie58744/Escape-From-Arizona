@@ -18,11 +18,9 @@ func findContainer()->ItemContainer:
 		return backpack
 	return
 
-func canPutInSlotType(slot:ItemSlot, draggableItem:DragableItem) -> bool:
-	if not (slot and draggableItem):
+func canPutInSlotType(slot:ItemSlot, item:Item) -> bool:
+	if not (slot and item):
 		return false
-
-	var item:Item = draggableItem.item
 	
 	# Generic slots (backpack grid cells) accept anything
 	if slot.SLOT_TYPE == Game.ITEM_TYPES.Item:
@@ -140,3 +138,15 @@ func remove(item:Item ,slot:ItemSlot, itemContainer:ItemContainer):
 	if (itemContainer):
 		itemContainer.remove(item)
 	slot.clear()
+	
+func canMoveItemToSlot(item: Item, targetSlot: ItemSlot) -> bool:
+	if not canPutInSlotType(targetSlot, item):
+		return false
+	return canAddToSlot(item, targetSlot, targetSlot.CONTAINER_ITEM)
+
+func moveItem(item:Item,toSlot:ItemSlot,fromSlot:ItemSlot):
+	if not canMoveItemToSlot(item,toSlot):
+		return false
+	remove(item,fromSlot,fromSlot.CONTAINER_ITEM)
+	addToSlot(item, toSlot, toSlot.CONTAINER_ITEM)
+	return true

@@ -21,5 +21,5 @@ func update(item: Item):
 		clear()
 		dragableItem = dragableItemScene.instantiate()
 		dragableItem.item = item
-		dragableItem.slot = self
+		dragableItem.iconSize = self.custom_minimum_size
 		add_child(dragableItem)
