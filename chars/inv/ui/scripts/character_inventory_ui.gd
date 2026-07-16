@@ -8,8 +8,6 @@ extends Control
 @export var slots: Array[ItemSlot]
 
 var showInventory:bool = false
-var draggingItem:DragableItem
-var drag_offset
 var slotMoveInto:ItemSlot
 
 class DragState:
@@ -32,11 +30,6 @@ var drag := DragState.new()
 func _ready() -> void:
 	visible = false
 	update_slots()
-
-func resetDrag():
-	draggingItem.queue_free()
-	draggingItem = null
-	slotMoveInto = null
 
 func connectDragSig(slot:ItemSlot):
 	if (!slot.is_connected("gui_input",Callable(self, "slot_gui_input").bind(slot))):
